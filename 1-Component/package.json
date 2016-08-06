@@ -1,7 +1,7 @@
 {
-  "name": "javazone2016-angular2-workshop",
+  "name": "Ng2-workshop-task1",
   "version": "1.0.0",
-  "description": "JavaZone 2016 Angular 2 workshop",
+  "description": "First task of JavaZone 2016 Angular 2 workshop",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
