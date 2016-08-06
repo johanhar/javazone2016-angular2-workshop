@@ -15,6 +15,6 @@ This is what you gotta do
 
 # Neste oppgave
 Neste oppgave finner du i et eget prosjekt.
-Du kan nå lukke dette prosjektet og åpne prosjektet for oppgave 2.
+Du kan nå lukke dette prosjektet i din IDE og åpne prosjektet for oppgave 2.
 
 [Oppgave 2 - Name](www.vg.no)
