@@ -3,4 +3,4 @@
 - etc
 
 # Oppgaver
-[Oppgave 1 - Component](1-Component/README.md)
+[Oppgave 1 - Component](1-Component)
