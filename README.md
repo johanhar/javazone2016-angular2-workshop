@@ -1,1 +1,6 @@
-# javazone2016-angular2-workshop
+# Før du setter i gang
+- npm install
+- etc
+
+# Oppgaver
+[Oppgave 1 - Component](www.vg.no)
