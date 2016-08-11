@@ -101,24 +101,15 @@ bootstrap(BookApp, []);
 ...
 ```
 
-## Oppgave 1.3 - Kjør appen
-La oss teste endringene vi har gjort til nå.
-
-Kjør følgende script terminalen:
+Man kan nå prøve å kjøre appen og se om alt stemmer så langt. Åpne en terminal og kjør følgende:
 
 ```
 npm start
 ```
 
-Åpne en nettleser: [http://localhost:8080](http://localhost:8080)
+Gå så til [http://localhost:8080](http://localhost:8080).
 
-### Feilsøking
-Hva kan gå galt, skriv noe om det her ...
+## Oppgave 1.3 -  
 
-## Oppgave 1.4 - Osv ...
-
-# Neste oppgave
-Neste oppgave finner du i et eget prosjekt.
-Du kan nå lukke dette prosjektet i din IDE og åpne prosjektet for oppgave 2.
 
 [Oppgave 2 - Name](www.vg.no)
