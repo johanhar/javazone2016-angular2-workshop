@@ -62,7 +62,7 @@ Angular er som sagt et tre av komponenter, vi starter med å opprette selve rote
 
 La oss kalle den noe så enkelt som `BookApp`.
 
-**/src/app/book-app.component.ts**
+**/src/book-app/book-app.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -74,7 +74,45 @@ export class BookApp {}
 ```
 
 ## 1.2 - Bootstrap appen
-....
+En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at `index.html` kan ta i bruk `<book-app>` elementet.
+
+### **Rediger følgende filer**
+
+**/src/main.ts**
+```javascript
+import { bootstrap } from '@angular/platform-browser-dynamic';
+import { BookApp } from './book-app/book-app.component';
+
+/* Webpack will automatically insert a <link> to index.html with the correct href after bundling is done  */
+import './styles.css';
+
+bootstrap(BookApp, []);
+```
+
+**/src/index.html**
+```html
+...
+<body>
+  <book-app></book-app>
+</body>
+...
+```
+
+## 1.3 - Kjør appen
+La oss teste endringene vi har gjort til nå.
+
+Kjør følgende script terminalen:
+
+```
+npm start
+```
+
+Åpne en nettleser: [http://localhost:8080](http://localhost:8080)
+
+### Feilsøking
+Hva kan gå galt, skriv noe om det her ...
+
+## 1.4 - Osv ...
 
 # Neste oppgave
 Neste oppgave finner du i et eget prosjekt.
