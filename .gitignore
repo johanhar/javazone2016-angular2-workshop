@@ -1,6 +1,6 @@
-/dist
-/node_modules
-/typings
+dist
+node_modules
+typings
 
 .idea
 *.swp
