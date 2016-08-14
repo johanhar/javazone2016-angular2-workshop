@@ -68,6 +68,15 @@ table th {
     padding: 0 20px;
 }
 
+.nav a {
+    color: #F8FAFE;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: #96B2DA;
+}
+
 .nav__links {
     flex: 1 0 0;
     list-style: none;
@@ -79,11 +88,6 @@ table th {
 .nav__links li {
     display: inline-block;
     margin: 0 0.5em;
-}
-
-.nav__links li:hover {
-    cursor: pointer;
-    color: #96B2DA;
 }
 
 .nav__title {

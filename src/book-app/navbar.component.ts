@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
+    'directives': [ROUTER_DIRECTIVES],
     'selector': 'navbar',
     'template': `
         <nav class="nav">
             <ul class="nav__links">
-                <li>Books</li>
-                <li>About</li>
-                <li>Contact</li>
+                <li><a [routerLink]="['books']">Books</a></li>
+                <li><a [routerLink]="['about']">About</a></li>
+                <li><a [routerLink]="['contact']">Contact</a></li>
             </ul>
             <span class="nav__title">Book app</span>
         </nav>
