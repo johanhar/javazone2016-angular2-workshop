@@ -374,8 +374,7 @@ bootstrap(BookApp, [
 ```
 
 Hvis vi tar en titt i consolen til nettleseren vår nå finner vi sikkert flere feil.
-Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`, 
-dessuten må linkene i navbaren redigere for at noe skal skje når vi klikker på dem.
+Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`.
 
 **Ta i bruk RouterOutlet i /src/book-app/book-app.component.ts**
 ```javascript
@@ -401,20 +400,21 @@ export class BookApp {}
 **Ta i bruk RouterLink i /src/book-app/navbar.component.ts**
 ```javascript
 import { Component } from '@angular/core';
-import { Navbar } from './navbar.component';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
-    'directives': [Navbar, ROUTER_DIRECTIVES],
-    'selector': 'book-app',
+    'directives': [ROUTER_DIRECTIVES],
+    'selector': 'navbar',
     'template': `
-        <div class="main-container">
-            <navbar></navbar>
-            <div class="container">              
-                <router-outlet></router-outlet>
-            </div>
-        </div>
+        <nav class="nav">
+            <ul class="nav__links">
+                <li><a [routerLink]="['books']">Books</a></li>
+                <li><a [routerLink]="['about']">About</a></li>
+                <li><a [routerLink]="['contact']">Contact</a></li>
+            </ul>
+            <span class="nav__title">Book app</span>
+        </nav>
     `
 })
-export class BookApp {}
+export class Navbar {}
 ```

@@ -68,13 +68,14 @@ table th {
     padding: 0 20px;
 }
 
-.nav a {
+.nav a, .nav__links li {
     color: #F8FAFE;
     text-decoration: none;
 }
 
-.nav a:hover {
+.nav a:hover, .nav__links li:hover {
     color: #96B2DA;
+    cursor: pointer;
 }
 
 .nav__links {
