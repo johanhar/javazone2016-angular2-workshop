@@ -77,7 +77,7 @@ export class BookApp {}
 ```
 
 ## Oppgave 1.2 - Bootstrap appen
-En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at `index.html` kan ta i bruk `<book-app>` elementet.
+En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. Resten av appen har sitt utspring fra rot-komponenten, hele appen inkluderes i `index.html` med å kun ta i bruk `<book-app>` elementet.
 
 ### Rediger følgende filer
 
@@ -85,9 +85,6 @@ En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at `ind
 ```javascript
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { BookApp } from './book-app/book-app.component';
-
-/* Webpack will automatically insert a <link> to index.html with the correct href after bundling is done  */
-import './styles.css';
 
 bootstrap(BookApp, []);
 ```
