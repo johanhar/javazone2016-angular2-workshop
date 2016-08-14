@@ -139,13 +139,56 @@ class ProductRow {
 }
 ```
 
-Her kan man se en komponent kalt `ProductRow` som er bygget opp av flere mindre komponenter igjen. Hvis vi ser i viewet/templaten finner vi tags som `<product-department>` og `<price-display>`. For at disse taggene skal vises må man liste opp hver tilhørende komponent i `directives` i `@Component`.
+Her kan man se en komponent kalt `ProductRow` som er bygget opp av flere mindre komponenter. Hvis vi ser i viewet/templaten finner vi tags som `<product-department>` og `<price-display>`. For at disse taggene skal vises må man liste opp hver tilhørende komponent i attributten `directives` til `@Component`.
 
 ### Opprett en ny fil for navbar komponenten
+**/src/book-app/navbar.component.ts**
+```javascript
+import { Component } from '@angular/core';
+
+@Component({
+    'selector': 'navbar',
+    'template': `
+        <nav class="nav">
+            <ul class="nav__links">
+                <li>Books</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+            <span class="nav__title">Book app</span>
+        </nav>
+    `
+})
+export class Navbar {}
+```
 
 ### Editer rot-komponenten
 
-## Oppgave 2 - Routing
+**/src/book-app/book-app.component.ts**
+```javascript
+import { Component } from '@angular/core';
+import { Navbar } from './navbar.component';
 
+@Component({
+    'directives': [Navbar],
+    'selector': 'book-app',
+    'template': `
+        <div class="main-container">
+        
+            <navbar></navbar>
+
+            <div class="container">              
+               
+            </div>
+        </div>
+    `
+})
+export class BookApp {}
+```
+
+## Oppgave 2 - Routing
+Du har kanskje hørt uttrykket "Single Page Application". Angular sin router gjør det mulig å endre nettleseren sin URL uten at man gjør et nytt page load, og bytte ut deler av siden med andre komponenter for bestemte ruter.
+
+ 
 
 [Oppgave 2 - Name](www.vg.no)
