@@ -106,7 +106,46 @@ npm start
 
 Gå så til [http://localhost:8080](http://localhost:8080).
 
-## Oppgave 1.3 -  
+## Oppgave 1.3 - Navbar
+La oss fortsette med å lage en enkel komponent for navigasjon. Hensikten med denne oppgaven er å vise hvordan en komponent kan bygges opp av andre komponenter. 
+
+#### Directive
+Hvis du kommer fra Angular 1 har du sikkert hørt om Directive. Angular 2 bruker fortsatt begrepet direktiv, det er nemlig sånn at Component er en subtype av Directive. Det finnes flere typer direktiv, hvor komponent er en av typene.
+
+Før man kan bruke andre direktiver og komponenter må man fortelle Angular om dette. Dette kan gjøres i metadata/annotation til komponenten.
+
+```javascript
+@Component({
+  selector: 'product-row',
+  inputs: ['product'],
+  host: {'class': 'item'},
+  directives: [ProductImage, ProductDepartment, PriceDisplay],
+  template: `
+  <product-image [product]="product"></product-image>
+  <div class="content">
+    <div class="header">{{ product.name }}</div>
+    <div class="meta">
+      <div class="product-sku">SKU #{{ product.sku }}</div>
+    </div>
+    <div class="description">
+      <product-department [product]="product"></product-department>
+    </div>
+  </div>
+  <price-display [price]="product.price"></price-display>
+  `
+})
+class ProductRow {
+  product: Product;
+}
+```
+
+Her kan man se en komponent kalt `ProductRow` som er bygget opp av flere mindre komponenter igjen. Hvis vi ser i viewet/templaten finner vi tags som `<product-department>` og `<price-display>`. For at disse taggene skal vises må man liste opp hver tilhørende komponent i `directives` i `@Component`.
+
+### Opprett en ny fil for navbar komponenten
+
+### Editer rot-komponenten
+
+## Oppgave 2 - Routing
 
 
 [Oppgave 2 - Name](www.vg.no)
