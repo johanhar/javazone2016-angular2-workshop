@@ -57,7 +57,7 @@ I eksempelet ovenfor har vi valgt å putte HTML direkte i annotation, men vi kan
 Her har vi valgt å definere Component sitt view (HTML) i en egen fil med navnet hello-world.html.
 
 #### Klasse
-Selve logikken til en Component legger vi i klassen. Her kan vi ha variabler og funksjoner som blir tilgjengelige for view/template. Dette gjør at appen vår blir interaktiv for brukeren. Det som skjer når brukeren trykker på en knapp i Component sitt view kan man legge i klassen. Mer om dette senere.
+Selve logikken til en Component legger vi i klassen. Her kan vi ha variabler og funksjoner som blir tilgjengelige for view/template. Dette gjør at appen vår blir interaktiv for brukeren. Det som for eksempel skal skje når brukeren trykker på en knapp i Component sitt view kan man legge i klassen. Mer om dette senere.
 
 ## Oppgave 1.1 - Vår første component
 ### Opprett appens rot-komponent
@@ -77,7 +77,7 @@ export class BookApp {}
 ```
 
 ## Oppgave 1.2 - Bootstrap appen
-En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. Resten av appen har sitt utspring fra rot-komponenten, hele appen inkluderes i `index.html` med å kun ta i bruk `<book-app>` elementet.
+En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. Resten av appen har sitt utspring fra rot-komponenten.
 
 ### Rediger følgende filer
 
