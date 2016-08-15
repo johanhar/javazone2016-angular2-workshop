@@ -418,3 +418,46 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 })
 export class Navbar {}
 ```
+
+## Oppgave 3 - Template bindings
+
+Ta en titt på følgende eksempel:
+
+```javascript
+@Component({
+  selector: 'my-component',
+  template: `<h1>{{ someValue }}</h1>`
+})
+class MyComponent {
+  someValue: String = "I'm a value you can display in the template...";
+}
+```
+
+Syntaksen **{{...}}** kalles for template binding. Vi henter `someValue` fra MyComponent klassen og viser den i templaten.
+Koden du finner på innsiden av **{{...}}** er en expression, det betyr at man kan gjøre forskjellige ting som:
+
+```javascript
+{{ count + 1 }}
+```
+
+```javascript
+{{ myFunction(myArguments) }}
+```
+
+La oss teste dette med et enkelt eksempel i vår egen app..
+
+**/src/book-app/about/about.component.ts**
+```javascript
+import { Component } from '@angular/core';
+
+@Component({
+    'selector': 'about',
+    'template': `
+        <p>We collect information about books ...</p>
+        <p>Currently we have as many as {{ numberOfBooks }} books</p>
+    `
+})
+export class About {
+    numberOfBooks: Number = 2;
+}
+```
