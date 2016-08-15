@@ -1,3 +1,5 @@
+// Her samler vi alle 3rd parts komponenter i en fil.
+
 // Angular 2
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
