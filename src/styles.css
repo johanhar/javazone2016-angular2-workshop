@@ -139,6 +139,9 @@ input.error, textarea.error {
     background: #AD4747;
     color: #fff;
 }
+div.error {
+    color: #AD4747;
+}
 
 input.error, textarea.error {
     color: black;
