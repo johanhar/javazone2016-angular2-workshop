@@ -97,3 +97,51 @@ table th {
     font-size: 1.5em;
     color: #96B2DA;
 }
+
+h1 {
+    padding-left: 20px;
+}
+form {
+    width: 50%;
+    margin: auto;
+    min-width: 9rem;
+}
+
+textarea {
+    height: 10rem;
+}
+
+input, textarea {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    background: #e0e0e0;
+    color: #797979;
+}
+input[type=submit] {
+    background: #96B2DA;
+    color: #fff;
+    width: auto;
+}
+
+input[type=submit]:hover {
+    background: #797979;
+}
+
+input, textarea {
+    color: #797979;
+}
+
+input.error, textarea.error {
+    background: #AD4747;
+    color: #fff;
+}
+
+input.error, textarea.error {
+    color: black;
+}
+
+

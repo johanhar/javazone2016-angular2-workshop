@@ -461,3 +461,12 @@ export class About {
     numberOfBooks: Number = 2;
 }
 ```
+
+## Oppgave 4 - Forms
+
+## 4.1 Binding og NgModel
+## 4.2 Validering
+## 4.3 Visualisering av validering
+
+## Oppgave 5 - Http og Observables
+
