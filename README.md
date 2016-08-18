@@ -462,6 +462,40 @@ export class About {
 }
 ```
 
+## Oppgave 3.1 - NgFor
+La oss ta i bruk template binding i sammenheng med en for-løkke. 
+For hver bok i biblioteket ønsker vi å vise en rad i en tabell.
+
+Angular har et innebygd direktiv for å lage for-løkker, det heter `NgIf`.
+Syktaksen er litt spesiell, men er enkel å forstå når man først skjønner tanken bak.
+
+```
+<li *ngFor="let item of items"> {{ item.someValue }} </li>
+```
+
+Her lager vi en ny `<li>` for hver iterasjon i `items` (som kommer fra klassen/komponenten til viewet).
+Stjerne (*) i `*ngFor` betyr at vi har med et direktiv å gjøre som går under kategorien [Structural Directives](https://angular.io/docs/ts/latest/guide/structural-directives.html).
+Disse type direktiv vil legge til eller fjerne deler av vårt view ved rendring.
+
+Et godt eksempel er `*ngIf`:
+```
+<p *ngIf="condition">
+  vises bare hvis condition er true
+</p>
+```
+
+Vi kan lage våre egne direktiv som viser eller skjuler deler av vårt view basert på en tilstand eller data,
+og disse vil da brukes med stjerne (*).
+
+Plan videre herfra:
+ - lag en komponent som skal være listen (<book-list>)
+ - lag en komponent for hver rad (<book-row>)
+ - utvid så med input, fra hardkodet komponenter som alltid viser det samme
+ - utvid så med output, click (detaljert visning)
+
+## Oppgave 3.2 - Input og output
+Side 84 i boken...
+
 #### Hvor ble det av $scope?
 For de som har jobbet med Angular 1 så legger man kanskje merke til at `$scope` er borte.
 Alle funksjoner og variabler i klassen `About` vil være synlige for templaten.
@@ -474,7 +508,7 @@ Dette er kanskje den enkleste måten å komme i gang med forms, og lar oss å la
 man trenger, visualisering, validering og submitting, på **deklartiv** måte.
 
 ## 4.1 Binding og NgModel
-De som er kjent med Angular1, vet at binding mellom view go kontroller går begge veier - vi kaller dette 
+De som er kjent med Angular1, vet at binding mellom view og kontroller går begge veier - vi kaller dette 
 **2-veis binding**. I utgangspunktet skjer binding i Angular2 i en vei, fra view til komponent. For å
 muliggjøre 2-veis binding i vår form, bruker vi spesiell syntaks for det:
 ```html
