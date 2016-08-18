@@ -464,9 +464,125 @@ export class About {
 
 ## Oppgave 4 - Forms
 
+Forms er en essensiel del av nesten alle applikasjoner. Det finns mange måter å lage forms i Angular2, men i 
+denne oppgaven fokuserer vi oss på så kalt **template-driven forms**.
+Dette er kanskje den enkleste måten å komme i gang med forms, og lar oss å lage de vangliste funksjonalitetene 
+man trenger, visualisering, validering og submitting, på **deklartiv** måte.
+
 ## 4.1 Binding og NgModel
+De som er kjent med Angular1, vet at binding mellom view go kontroller går begge veier - vi kaller dette 
+**2-veis binding**. I utgangspunktet skjer binding i Angular2 i en vei, fra view til komponent. For å
+muliggjøre 2-veis binding i vår form, bruker vi spesiell syntaks for det:
+```html
+<input type="text" [(ngModel)]="myModel.name" name="inputName">
+```
+
+**Legg til binding til model fra *src/book-app/contact/message.ts***
+```html
+        <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
+          <input autofocus="true"
+                 autocomplete="off" 
+                 [(ngModel)]="model.name" 
+                 type="text" 
+                 [class.error]="name.invalid && !name.pristine"
+                 placeholder="Name *" 
+                 #name="ngModel"
+                 required
+                 name="name">
+          <div class="error" [hidden]="name.valid || name.pristine">
+            Name is required.
+          </div>
+          <input autocomplete="off"
+                 [(ngModel)]="model.email" type="email"
+                 placeholder="Email" name="email">
+          <textarea [(ngModel)]="model.messageText" 
+                    placeholder="Your message *" 
+                    [class.error]="message.invalid && !message.pristine"
+                    #message="ngModel"
+                    required
+                    name="messageText">
+          </textarea>
+          <div class="error" [hidden]="message.valid || message.pristine">
+            Message text is required.
+          </div>
+          <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
+        </form>   
+
+```
+
 ## 4.2 Validering
+Angular2 med **template-driven forms** kommer med et sett at validators out-of-box:
+* required
+* minlength
+* maxlength
+* pattern
+
+Med kombinasjon av ngModel og disse validatorne, får man lett tilgang til tilstanden av form med hjelp av 
+*template reference variable* 
+```html
+<input #myVar="ngModel" type="text" [(ngModel)]="myModel.name" name="inputName">
+Valid input? :{{myVar.valid}}
+```
+
+**Legg till validering som gjør *name* og *messageText* -felt påbudt.**  
+
+
 ## 4.3 Visualisering av validering
+I tillegg til kontrollering av tilstand, legger ngModel-directive noen ekstra css-klasser til DOM-element,
+som gir oss muligheten å visualisere tilstanden til vår input felt slik vi ønsker.
+
+NgModel tilstand og tilsvarende css-klasse:
+* myModel.valid -> ng-valid
+* myModel.invalid -> ng-invalid
+* myModel.touched -> ng-touched
+* myModel.dirty -> ng-dirty
+* myModel.pristine -> ng-pristine
+
+Men hvis man ønsker bruke css-klasser med noen logikk, må man bruke følgende syntaks:
+```html
+<div [class.myClass]="myBooleanExpression">My div</div>
+```
+Dette kan vi utnytte ved hjel av *template reference variable* og ngModel. F.eks:
+```html
+[class.error]="name.invalid && !name.pristine"
+```
+
+**Ved bruk av *template reference variable* og ngModel sin tilstand, legg til 
+ regler som setter css-klasse *error* til input-felt, når den er ikke gyldig.
+ La mærke til det, at feilmeldingen og rød farge skal *ikke* vises når man
+ kommer første gang til side.**
+ ```html
+        <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
+          <input autofocus="true"
+                 autocomplete="off" 
+                 [(ngModel)]="model.name" 
+                 type="text" 
+                 [class.error]="name.invalid && !name.pristine"
+                 placeholder="Name *" 
+                 #name="ngModel"
+                 required
+                 name="name">
+          <div class="error" [hidden]="name.valid || name.pristine">
+            Name is required.
+          </div>
+          <input autocomplete="off"
+                 [(ngModel)]="model.email" type="email"
+                 placeholder="Email" name="email">
+          <textarea [(ngModel)]="model.messageText" 
+                    placeholder="Your message *" 
+                    [class.error]="message.invalid && !message.pristine"
+                    #message="ngModel"
+                    required
+                    name="messageText">
+          </textarea>
+          <div class="error" [hidden]="message.valid || message.pristine">
+            Message text is required.
+          </div>
+          <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
+        </form>   
+ ```
+
+
 
 ## Oppgave 5 - Http og Observables
 
