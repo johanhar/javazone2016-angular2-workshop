@@ -462,6 +462,10 @@ export class About {
 }
 ```
 
+#### Hvor ble det av $scope?
+For de som har jobbet med Angular 1 så legger man kanskje merke til at `$scope` er borte.
+Alle funksjoner og variabler i klassen `About` vil være synlige for templaten.
+
 ## Oppgave 4 - Forms
 
 ## 4.1 Binding og NgModel
