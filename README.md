@@ -489,7 +489,7 @@ og disse vil da brukes med stjerne (*). Men dette skal vi ikke gjøre i denne wo
 
 La oss teste NgFor i vår egen app.
 
-**/src/book-app/books/books.component.ts**
+**Editer /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -510,10 +510,10 @@ export class Books {
 ## Oppgave 3.2 - En egen klasse for Bok
 Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript som representerer en bok.
 
-**/src/book-app/books/book.model.ts**
+**Opprett /src/book-app/books/book.model.ts**
 ```javascript
-class Book {
-    constructor(title: String, author: String, isbn: Number) {}
+export class Book {
+    constructor(public title: String, public author: String, public isbn: Number) {}
 }
 ```
 
@@ -544,6 +544,8 @@ Det er mest vanlig med TypeScript å bruke vårt første eksempel:
  * hver property blir definert i constructor, de trengs ikke å defineres på forhånd
  * hver property vil bli assigned automatisk, vi trenger ikke å gjøre det selv med `this.property = argument`
 
+**NB:** For at de to punktene ovenfor skal bli oppfyllt må argumentet være `public`.
+
 ### Så hvordan får jeg laget en ny instans av Book?
 ```
 let book = new Book('My book', 'My name', 123);
@@ -557,23 +559,97 @@ Senere vil vi kunne utvide med data fra en server.
 
 **@simo**: her kan vi ta i bruk http/streams osv ;)
 
-**/src/book-app/books/book-row.component.ts**
+**Opprett /src/book-app/books/book-row.component.ts**
 ```javascript
 import { Component } from '@angular/core';
+import { Book } from './book.model';
+
+@Component({
+    'selector': 'tr[book-row]',
+    'template': `
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.isbn}}</td>
+    `
+})
+export class BookRow {
+    book = new Book('The book title', 'The author', 123);
+}
+```
+
+**Opprett /src/book-app/books/book-list.component.ts**
+```javascript
+import { Component } from '@angular/core';
+import { BookRow } from './book-row.component';
+
+@Component({
+    'selector': 'book-list',
+    'directives': [BookRow],
+    'template': `
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- snart lager vi en NgFor her istedenfor -->
+                <tr book-row></tr>
+                <tr book-row></tr>
+                <tr book-row></tr>
+                <tr book-row></tr>
+            </tbody>
+        </table>
+    `
+})
+export class BookList {
+    // foreløpig tom
+}
+```
+
+Syntaksen i BookRow sin selector er litt annerledes.
+Vi sier at man skal kun bruke komponenten som en attributt på et html element, og det må være en `<tr>`.
+Dette gjør vi for å slippe at Angular rendrer følgende:
+```html
+<tbody>
+    <book-row> <!-- ikke gyldig html i tbody -->
+        <tr>
+            <td>...</td>
+        </tr>
+    </book-row>
+</tbody>
+```
+
+men heller ... :
+```html
+<tbody>
+    <tr>
+        <td>...</td>
+    </tr>
+</tbody>
+```
+
+La oss se hvordan dette blir når vi putter det sammen:
+
+**Editer /src/book-app/books/books.component.ts**
+```javascript
+import { Component } from '@angular/core';
+import { BookList } from './book-list.component';
 
 @Component({
     'selector': 'books',
+    'directives': [BookList],
     'template': `
         <h1>Look at all these books!</h1>
-        <ul>
-            <li *ngFor="let book of books">{{book}}</li>
-        </ul>
+        <book-list></book-list>
     `
 })
-export class Books {
-    books: [String] = ['Steelheart', 'Enders game', 'The Name of the Wind']
-}
+export class Books {}
 ```
+
+
 
 Plan videre herfra:
  - lag en komponent som skal være listen (<book-list>)
@@ -581,7 +657,6 @@ Plan videre herfra:
  - utvid så med input, fra hardkodet komponenter som alltid viser det samme
  - utvid så med output, click (detaljert visning)
 
-## Oppgave 3.2 - Input og output
 Side 84 i boken...
 
 #### Hvor ble det av $scope?

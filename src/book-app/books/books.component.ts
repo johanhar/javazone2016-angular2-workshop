@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
+import { BookList } from './book-list.component';
 
 @Component({
     'selector': 'books',
+    'directives': [BookList],
     'template': `
         <h1>Look at all these books!</h1>
-        <ul>
-            <li *ngFor="let book of books">{{book}}</li>
-        </ul>
+        <book-list></book-list>
     `
 })
-export class Books {
-    books: [String] = ['Steelheart', 'Enders game', 'The Name of the Wind']
-}
+export class Books {}
