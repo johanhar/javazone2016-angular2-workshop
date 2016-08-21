@@ -642,13 +642,17 @@ import { BookList } from './book-list.component';
     'selector': 'books',
     'directives': [BookList],
     'template': `
-        <h1>Look at all these books!</h1>
         <book-list></book-list>
     `
 })
 export class Books {}
 ```
 
+## Oppgave 3.4 - Input
+Akkurat nå er alle bøker like... 
+Hvordan kan vi gi en liste av BookRow hver sin Book model?
+
+### Fortsett med definisjon av input ...
 
 
 Plan videre herfra:

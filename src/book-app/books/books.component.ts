@@ -5,7 +5,6 @@ import { BookList } from './book-list.component';
     'selector': 'books',
     'directives': [BookList],
     'template': `
-        <h1>Look at all these books!</h1>
         <book-list></book-list>
     `
 })
