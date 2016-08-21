@@ -466,14 +466,14 @@ export class About {
 La oss ta i bruk template binding i sammenheng med en for-løkke. 
 For hver bok i biblioteket ønsker vi å vise en rad i en tabell.
 
-Angular har et innebygd direktiv for å lage for-løkker, det heter `NgIf`.
+Angular har et innebygd direktiv for å lage for-løkker, det heter `NgFor`.
 Syktaksen er litt spesiell, men er enkel å forstå når man først skjønner tanken bak.
 
 ```
 <li *ngFor="let item of items"> {{ item.someValue }} </li>
 ```
 
-Her lager vi en ny `<li>` for hver iterasjon i `items` (som kommer fra klassen/komponenten til viewet).
+Her lager vi en ny `<li>` for hver iterasjon av `items` (som kommer fra klassen til viewet).
 Stjerne (*) i `*ngFor` betyr at vi har med et direktiv å gjøre som går under kategorien [Structural Directives](https://angular.io/docs/ts/latest/guide/structural-directives.html).
 Disse type direktiv vil legge til eller fjerne deler av vårt view ved rendring.
 
@@ -485,7 +485,95 @@ Et godt eksempel er `*ngIf`:
 ```
 
 Vi kan lage våre egne direktiv som viser eller skjuler deler av vårt view basert på en tilstand eller data,
-og disse vil da brukes med stjerne (*).
+og disse vil da brukes med stjerne (*). Men dette skal vi ikke gjøre i denne workshopen, vi fokusere kun på innebygde direktiv for nå.
+
+La oss teste NgFor i vår egen app.
+
+**/src/book-app/books/books.component.ts**
+```javascript
+import { Component } from '@angular/core';
+
+@Component({
+    'selector': 'books',
+    'template': `
+        <h1>Look at all these books!</h1>
+        <ul>
+            <li *ngFor="let book of books">{{book}}</li>
+        </ul>
+    `
+})
+export class Books {
+    books: [String] = ['Steelheart', 'Enders game', 'The Name of the Wind']
+}
+```
+
+## Oppgave 3.2 - En egen klasse for Bok
+Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript som representerer en bok.
+
+**/src/book-app/books/book.model.ts**
+```javascript
+class Book {
+    constructor(title: String, author: String, isbn: Number) {}
+}
+```
+
+Bruken av `.model.ts` her har ingenting å si, det er konvensjon vi lager for oss selv, på lik linje med `.component.ts`, eller `.template.html`.
+
+### Tom constructor?
+Det stemmer ...
+Vi ønsker ikke at det skal være mulig å lage en bok uten å ha alle felter: tittel, forfatter og isbn.
+Hvert argument i constructor vil automatisk bli en property til klassen, og hver property vil bli assigned.
+
+Mer eksplesitt kunne vi har skrevet:
+```javascript
+class Book {
+    title: String;
+    author: String;
+    isbn: Number;
+
+    constructor(title: String, author: String, isbn: Number) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+    }
+}
+``` 
+
+Det er kanskje enklere å forstå, mange vil foretrekke denne versjonen.
+Det er mest vanlig med TypeScript å bruke vårt første eksempel:
+ * hver property blir definert i constructor, de trengs ikke å defineres på forhånd
+ * hver property vil bli assigned automatisk, vi trenger ikke å gjøre det selv med `this.property = argument`
+
+### Så hvordan får jeg laget en ny instans av Book?
+```
+let book = new Book('My book', 'My name', 123);
+```
+
+## Oppgave 3.3 - En tabell av bøker
+La oss fortsette med listen av bøker med å bruke en `<table>` istedenfor `<ul>`. 
+For hver rad i tabellen ønsker vi å ha en egen komponent.
+Til å starte med er hver rad lik, den samme hardkodet boken.
+Senere vil vi kunne utvide med data fra en server.
+
+**@simo**: her kan vi ta i bruk http/streams osv ;)
+
+**/src/book-app/books/book-row.component.ts**
+```javascript
+import { Component } from '@angular/core';
+
+@Component({
+    'selector': 'books',
+    'template': `
+        <h1>Look at all these books!</h1>
+        <ul>
+            <li *ngFor="let book of books">{{book}}</li>
+        </ul>
+    `
+})
+export class Books {
+    books: [String] = ['Steelheart', 'Enders game', 'The Name of the Wind']
+}
+```
 
 Plan videre herfra:
  - lag en komponent som skal være listen (<book-list>)
