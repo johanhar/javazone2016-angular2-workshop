@@ -1,3 +1,8 @@
 export class Book {
-    constructor(public title: String, public author: String, public isbn: Number) {}
+    constructor(
+        public title: String, 
+        public author: String, 
+        public isbn: Number,
+        public description: String
+    ) {}
 }

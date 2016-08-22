@@ -10,5 +10,5 @@ import { Book } from './book.model';
     `
 })
 export class BookRow {
-    book = new Book('The book title', 'The author', 123);
+    book = new Book('The book title', 'The author', 123, 'Some description');
 }
