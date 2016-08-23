@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
+import {Book} from "./book.model";
+import {SearchComponent} from "../search/search.component";
 
 @Component({
     'selector': 'book-list',
@@ -24,5 +26,4 @@ import { BookRow } from './book-row.component';
     `
 })
 export class BookList {
-    // foreløpig tom
 }

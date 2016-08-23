@@ -789,5 +789,5 @@ Dette kan vi utnytte ved hjel av *template reference variable* og ngModel. F.eks
 
 
 
-## Oppgave 5 - Http og Observables
+## Oppgave 5 - Services og Observables
 

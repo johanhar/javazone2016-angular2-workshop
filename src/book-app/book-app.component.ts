@@ -14,4 +14,5 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
         </div>
     `
 })
-export class BookApp {}
+export class BookApp {
+}
