@@ -462,6 +462,10 @@ export class About {
 }
 ```
 
+#### Hvor ble det av $scope?
+For de som har jobbet med Angular 1 så legger man kanskje merke til at `$scope` er borte.
+Alle funksjoner og variabler i klassen `About` vil være synlige for templaten.
+
 ## Oppgave 3.1 - NgFor
 La oss ta i bruk template binding i sammenheng med en for-løkke. 
 For hver bok i biblioteket ønsker vi å vise en rad i en tabell.
@@ -513,7 +517,12 @@ Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript 
 **Opprett /src/book-app/books/book.model.ts**
 ```javascript
 export class Book {
-    constructor(public title: String, public author: String, public isbn: Number) {}
+    constructor(
+        public title: String, 
+        public author: String, 
+        public isbn: Number,
+        public description: String
+    ) {}
 }
 ```
 
@@ -530,11 +539,13 @@ class Book {
     title: String;
     author: String;
     isbn: Number;
+    description: String;
 
-    constructor(title: String, author: String, isbn: Number) {
+    constructor(title: String, author: String, isbn: Number, description: String) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.description = description;
     }
 }
 ``` 
@@ -545,11 +556,6 @@ Det er mest vanlig med TypeScript å bruke vårt første eksempel:
  * hver property vil bli assigned automatisk, vi trenger ikke å gjøre det selv med `this.property = argument`
 
 **NB:** For at de to punktene ovenfor skal bli oppfyllt må argumentet være `public`.
-
-### Så hvordan får jeg laget en ny instans av Book?
-```
-let book = new Book('My book', 'My name', 123);
-```
 
 ## Oppgave 3.3 - En tabell av bøker
 La oss fortsette med listen av bøker med å bruke en `<table>` istedenfor `<ul>`. 
@@ -573,7 +579,7 @@ import { Book } from './book.model';
     `
 })
 export class BookRow {
-    book = new Book('The book title', 'The author', 123);
+    book = new Book('The book title', 'The author', 123, 'Some description');
 }
 ```
 
@@ -652,7 +658,44 @@ export class Books {}
 Akkurat nå er alle bøker like... 
 Hvordan kan vi gi en liste av BookRow hver sin Book model?
 
-### Fortsett med definisjon av input ...
+#### [squareBrackets]
+Syntaksen for å gi en komponent input er med "square brackets":
+```html
+<some-component [someValue]="theValue"></some-component>
+```
+
+For at `<some-component>` skal kunne ta imot input må den si hvilke properties i klassen som skal kunne assignes fra utsiden:
+```javascript
+@Component({
+    'selector': 'some-component',
+    'inputs': ['someValue'],
+    'template': `...`
+})
+export class SomeComponent {
+    someValue: String;
+}
+```
+
+La oss late som at BookList henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
+
+**Editer /src/book-app/books/book-list.component**
+```javascript
+
+```
+
+Det vi kan gjøre nå er å gjøre BookRow mottakelig for input på hvilken bok den skal vise.
+
+**Editer /src/book-app/books/book-row.component**
+```javascript
+
+```
+
+Gå så tilbake til BookList og gi hver BookRow sin egen Book fra listen av alle bøker.
+
+**Editer /src/book-app/books/book-list.component**
+```javascript
+
+```
 
 
 Plan videre herfra:
@@ -662,10 +705,6 @@ Plan videre herfra:
  - utvid så med output, click (detaljert visning)
 
 Side 84 i boken...
-
-#### Hvor ble det av $scope?
-For de som har jobbet med Angular 1 så legger man kanskje merke til at `$scope` er borte.
-Alle funksjoner og variabler i klassen `About` vil være synlige for templaten.
 
 ## Oppgave 4 - Forms
 

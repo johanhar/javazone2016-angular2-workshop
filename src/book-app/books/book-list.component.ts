@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
-import {Book} from "./book.model";
-import {SearchComponent} from "../search/search.component";
+import { Book } from './book.model';
+import {BOOK_DATA} from "../services/book.data";
 
 @Component({
     'selector': 'book-list',
@@ -26,4 +26,5 @@ import {SearchComponent} from "../search/search.component";
     `
 })
 export class BookList {
+    books: [Book] = BOOK_DATA;
 }
