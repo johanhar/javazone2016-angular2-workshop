@@ -11,7 +11,8 @@ import {Result} from "./result.component";
     'directives': [SearchComponent, BookRow, Result],
     'template': `
         <search (onSearchResult)='showResult($event)'></search>
-        <table>
+        <result #result [results]='books'></result>
+        <table *ngIf="!result.isEmpty()">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -24,7 +25,6 @@ import {Result} from "./result.component";
                 <tr *ngFor='let book of books' [book-row]='book'></tr>
             </tbody>
         </table>
-        <result [results]='books'></result>
     `
 })
 export class BookList implements OnInit {

@@ -12,6 +12,7 @@ import {
 } from '@angular/router';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {BookDetailComponent} from "./book-app/books/bookdetail.component";
 
 const routes: RouterConfig = [
     {
@@ -26,6 +27,9 @@ const routes: RouterConfig = [
     {
         path: 'books',
         component: Books
+    },
+    {   path: 'books/:id',
+        component: BookDetailComponent
     },
     {
         path: 'contact',
