@@ -32,6 +32,12 @@ export class BookService {
         });
     }
 
+    numberOfBooks(): number {
+        return BOOK_DATA.length;
+    }
 
+    getAll(): Book[] {
+        return BOOK_DATA;
+    }
 }
 

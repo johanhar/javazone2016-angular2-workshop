@@ -5,7 +5,7 @@ import {Book} from "../books/book.model";
 @Component({
     'providers': [BookService],
     'selector': 'search',
-    'template': `<input type="text" #key (keyup)="search(key.value)" placeholder="Search">`
+    'template': `<input  class="search" type="text" #key (keyup)="search(key.value)" placeholder="Search">`
 })
 export class SearchComponent {
 

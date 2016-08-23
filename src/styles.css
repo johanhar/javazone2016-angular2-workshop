@@ -38,6 +38,12 @@ table th {
     margin: 20px auto;
     width: 100%;
 }
+.result {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    width: 100%;
+}
 
 .book-search input {
     width: 15rem;
@@ -129,6 +135,10 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background: #797979;
+}
+
+input.search {
+    width: 15em;
 }
 
 input, textarea {

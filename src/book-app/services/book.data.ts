@@ -82,5 +82,73 @@ export const BOOK_DATA = [
             learn functional and declarative approaches to programming and will master
             the techniques that make Clojure so elegant and efficient.
         `
+    },
+    {
+        id: 6,
+        title: "D3.js in Action",
+        author: "Elijah Meeks",
+        isbn: "ISBN 9781617292118",
+        description: `
+            D3.js in Action is a practical tutorial for creating interactive graphics and
+            data-driven applications using D3.js. You'll start with in-depth explanations
+            of D3's out-of-the-box layouts, along with dozens of practical use cases that
+            align with different types of visualizations. Then, you'll explore practical
+            techniques for content creation, animation, and representing dynamic data—including
+            interactive graphics and data streamed live over the web. The final chapters show
+            you how to use D3's rich interaction model as the foundation for a complete web
+            application. In the end, you'll be ready to integrate D3.js into your web
+            development process and transform any site into a more engaging and
+            sophisticated user experience.
+        `
+    },
+    {
+        id: 7,
+        title: "Real-World Machine Learning",
+        author: "Henrik Brink",
+        isbn: "ISBN 9781617291920",
+        description: `
+            Real-World Machine Learning is a practical guide designed to teach working
+            developers the art of ML project execution. Without overdosing you on academic
+            theory and complex mathematics, it introduces the day-to-day practice of machine
+            learning, preparing you to successfully build and deploy powerful ML systems.
+            Using the Python language and the R statistical package, you'll start with core
+            concepts like data acquisition and modeling, classification, and regression.
+            You'll then move through the most important ML tasks, like model validation,
+            optimization and feature engineering. By following numerous real-world examples,
+            you'll learn how to anticipate and overcome common pitfalls. Along the way, you'll
+            discover scalable and online algorithms for large and streaming data sets.
+            Advanced readers will appreciate the in-depth discussion of enhanced ML systems
+            through advanced data exploration and pre-processing methods.
+        `
+    },
+    {
+        id: 8,
+        title: "Making Sense of NoSQL",
+        author: "Daniel G. McCreary",
+        isbn: "ISBN 9781617291074",
+        description: `
+            Making Sense of NoSQL clearly and concisely explains the concepts, features, benefits,
+            potential, and limitations of NoSQL technologies. Using examples and use cases, illustrations,
+            and plain, jargon-free writing, this guide shows how you can effectively assemble a NoSQL
+            solution to replace or augment the traditional RDBMS you have now.
+        `
+    },
+    {
+        id: 10,
+        title: "Struts in Action",
+        author: "Ted N. Husted",
+        isbn: "ISBN 9781930110502",
+        description: `
+            Struts solves the most common problems of web development. By basing your application on
+            the Struts framework, you can reuse proven solutions and focus on what's unique to your
+            own case. Struts is an open-source product distributed by the Apache Software Foundation.
+            Struts in Action is a comprehensive introduction to the Struts framework. It covers initial
+            design, data validation, database access, dynamic page assembly, localization, product
+            configuration, and other important areas. It shows you how to use both JSP tags and Velocity
+            templates. It carefully explains the Struts architecture and control flow, as well as how to
+            extend framework classes
+        `
     }
+
+
 ];
