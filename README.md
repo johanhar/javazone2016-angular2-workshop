@@ -828,5 +828,22 @@ Dette kan vi utnytte ved hjel av *template reference variable* og ngModel. F.eks
 
 
 
-## Oppgave 5 - Services og Observables
+## Oppgave 5 Services og DI (dependency injection)
 
+## 5.1 Lage en service
+
+## 5.2 Gjör servicen tilgjengelig for DI
+
+
+## Oppgave 6 Lifecycle events
+
+## 6.1 Vis antall bøker på 'about'-side 
+
+
+## Oppgave 7 Binding til events
+
+## 7.1 Lage en custom event for resultater
+
+## 7.2 Send events fra søkresultater
+
+## 7.3 Vis resultater ved events i template

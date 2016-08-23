@@ -1,4 +1,4 @@
-import {Component,OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {BookService} from "../services/book.service";
 import {Book} from "../books/book.model";
 
