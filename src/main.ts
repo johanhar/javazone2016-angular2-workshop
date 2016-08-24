@@ -12,7 +12,7 @@ import {
 } from '@angular/router';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {BookDetailComponent} from "./book-app/books/bookdetail.component";
+import {BookDetailComponent} from "./book-app/books/book-detail.component";
 
 const routes: RouterConfig = [
     {
