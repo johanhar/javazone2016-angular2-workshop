@@ -829,21 +829,150 @@ Dette kan vi utnytte ved hjel av *template reference variable* og ngModel. F.eks
 
 
 ## Oppgave 5 Services og DI (dependency injection)
+For å hente data til bøker, skal vi lage en service som komponenter
+kan utnytte for å søke på bøker, og hente data. Vi må også fortelle til Angular at 
+vår service er tilgjengelig for *dependency injection*, slik at komponenter
+som vil ha service kan registrere den via DI.
 
 ## 5.1 Lage en service
+Servicen vår mangler noen funksjonalitet som du må oppfylle.
+Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.
+
 
 ## 5.2 Gjör servicen tilgjengelig for DI
+For at en komponent skal bli tilgjengelig for DI må annotere den
+med @Injectable() (husk å bruke parenteser, ellers får du mange rare feilmeldinger). 
+Denne annotasjonen skal ligge i *src/book-app/services/book.service.ts*
 
+De komponentene som skal bruke vår @Injectable() service-klasse må:
+* sette 'providers' i en @Component-annotasjonen 
+* legge til parametre i konstruktor som skal injectes
 
-## Oppgave 6 Lifecycle events
+F.eks. 
+```javascript
+@Component({
+    'selector': 'about',
+    'providers': [MyService]
+    ....
+})
+class MyComponent {
+    
+    constructor(private myService: MyService) {
+    }
+    ....
+}
+
+```
+Disse endringene skal lages i *src/book-app/books/book-list.component.ts* 
+
+Hva er *provider* da ?
+Provider er en klasse, som vet hvordan man lager instanser av klasser
+som skal bli injected. Provider kan være f.eks. factory-klasse, men 
+som vanlig er den *klasse som skal bli injected selv*.
+
+## Oppgave 6 Lifecycle hooks
+Hver komponent som vi lager i Angular har sin egen så kallt *lifecycle*.
+Dette består av hendelser som er knyttet til det hva Angular gjør med komponent.
+Typiske sånne hendelser er f.eks. oppretting av komponent, oppdatering, sjekking
+og sletting av komponent. Ved å implementer spesielle *interfaces* som Angular
+tilbyr, kan vi knytte vår egen funksjonalitet til disse hendelser. 
+
+De mest vanlige interfaces er:
+* OnInit
+* OnDestroy
+* OnChanges
+
+For eksempel:
+```javascript
+class MyComponent implements OnInit { 
+    ngOnInit() { 
+        console.log('ngOnInit - initializing component.'); 
+    }
+}
+```
 
 ## 6.1 Vis antall bøker på 'about'-side 
-
+Ved hjelp av OnInit-interface, implementer funksjonalitet i en fil
+*src/book-app/about/about.component.ts* som skal vise total antall av
+bøker vi har. BookService-klasse har en method *numberOfBooks* som du kan
+bruke her.
 
 ## Oppgave 7 Binding til events
+Vanlig Angular-applikasjon er et tree av komponenter, hvor data flyter nedover i tree 
+oftest via property-binding ved hjelp av @Input-annotering. Når man har behov å 
+passe data oppover i komponent-tree, bruker man vanligvis *event binding* med
+kustom events. Dette er ikke den eneste måte å passe data oppover i komponentstruktur,
+men når man har direkte parent-child relasjon, er dette en grei måte å gjøre det.
+
+I vår applikasjon har vi parent-child relasjon mellom komponenter *BookList* og 
+*SearchComponent*. Siden BookList inkluderer *<search>*-tag i sin template, er
+ den parent-komponent, og SearchComponent er child-komponent.
+ Når brukeren utfører søk og får resultater, må fi fortelle nå oppover i strukturen
+ at vi har noe som vi ville vise til brukeren.
+ Dette kan vi oppnå ved å lage vår egen *custome event* og reagere på.
 
 ## 7.1 Lage en custom event for resultater
+Åpne filen src/book-app/search/search-component.ts
+Der skal vi ha vår custom-event som er av type *EventEmitter*.
+I tillegg til det må vi annotere det slik at Angular kan registrer den.
+Riktig annotasjon her er *@Output()*.
+
+Et eksempel om custom-event:
+```javascript
+@Output() onMyEvent:EventEmitter<MyPayloadType> = new EventEmitter<MyPayloadType>
+```
+
+Siden vi retunerer instanser av Book-klasse fra BookService, er *payload* i dette
+tilfelle *en array av bøker*.
 
 ## 7.2 Send events fra søkresultater
+Åpne filen src/book-app/search/search-component.ts
+
+Når vi har vår egen EventEmitter på plass, må vi sende events på riktige tidspunkter
+med den, slik at de komponentene som lytter på oss kan reager på dem.
+Disse tidspunktene i vår tilfelle er når vi *har fått søkresultat* og når brukeren
+har *skrivet i søkefelt mindre enn 2 tegn*.
 
 ## 7.3 Vis resultater ved events i template
+Åpne filen src/book-app/search/book-list.component.ts
+
+Da er vår komponent klar til å sende events, og det som gjenstår, er å definere
+hvordan vi reagerer på dem i parent-komponent. 
+Med andre ord: vi skal *binde på event* i vår parent-komponents template.
+
+F.eks.
+```html
+<mytag (onMyCustomEvent)='myMethodCall()'></mytag>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

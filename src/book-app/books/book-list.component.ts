@@ -10,7 +10,9 @@ import {Result} from "./result.component";
     'selector': 'book-list',
     'directives': [SearchComponent, BookRow, Result],
     'template': `
+        <!-- Oppgave 7.1 Her må vi binde til vår event.-->
         <search (onSearchResult)='showResult($event)'></search>
+        
         <result #result [results]='books'></result>
         <table *ngIf="!result.isEmpty()">
             <thead>
@@ -38,6 +40,8 @@ export class BookList implements OnInit {
         this.books = this.bookService.getAll();
     }
 
+    // Oppgave 7.1 Her setter vi søkresultat til komponent.
+    // Dette må vi kalle når vi har noe å vise.
     showResult(result: Book[]) {
         this.books = result;
     }
