@@ -7,8 +7,10 @@ I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av
  - Jeg har editert styles.css
  - Jeg fjernet <a> tags i BookRow for å gi en innføring i (click) heller
  - Jeg har laget en book.data.ts fil som ikke er lik den som brukes i oppgave 5, denne skal følge med branchen til oppgave 3
+ - Husk å lage en ny book.data.ts til oppgave 5 fordi den er ikke lik i oppgave 3
  - Jeg har fjernet BookList
  - Jeg har fjernet message.ts i oppgave4
+ - Husk å ta i bruk (click) til å faktisk vise detaljert view av bøker
 
 ## Før du begynner
  - `npm install`
@@ -1119,35 +1121,3 @@ F.eks.
 ```html
 <mytag (onMyCustomEvent)='myMethodCall()'></mytag>
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
