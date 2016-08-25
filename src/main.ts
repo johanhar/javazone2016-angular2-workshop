@@ -12,7 +12,7 @@ import {
   Router,
   RouterConfig
 } from '@angular/router';
-
+import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 const routes: RouterConfig = [
@@ -37,5 +37,7 @@ const routes: RouterConfig = [
 
 bootstrap(BookApp, [
     provideRouter(routes),
+    disableDeprecatedForms(),
+    provideForms(),
     bind(LocationStrategy).toClass(HashLocationStrategy)
 ]);

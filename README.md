@@ -8,7 +8,7 @@ I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av
  - Jeg fjernet <a> tags i BookRow for å gi en innføring i (click) heller
  - Jeg har laget en book.data.ts fil som ikke er lik den som brukes i oppgave 5, denne skal følge med branchen til oppgave 3
  - Jeg har fjernet BookList
- - Jeg har 
+ - Jeg har fjernet message.ts i oppgave4
 
 ## Før du begynner
  - `npm install`
@@ -808,10 +808,112 @@ Mer om dette senere.
 
 ## Oppgave 4 - Forms
 
-Forms er en essensiel del av nesten alle applikasjoner. Det finns mange måter å lage forms i Angular2, men i 
+### Skift til riktig branch
+```
+git checkout -f oppgave4
+```
+
+**@simo**: kan du døpe om message.ts til message.model.ts når du lager branches og sånn? ... forresten jeg tror ikke vi har bruk for den i det hele tatt
+
+IKKE LENGRE SANT?:
+(Forms er en essensiel del av nesten alle applikasjoner. Det finns mange måter å lage forms i Angular2, men i 
 denne oppgaven fokuserer vi oss på så kalt **template-driven forms**.
 Dette er kanskje den enkleste måten å komme i gang med forms, og lar oss å lage de vangliste funksjonalitetene 
-man trenger, visualisering, validering og submitting, på **deklartiv** måte.
+man trenger, visualisering, validering og submitting, på **deklartiv** måte.)
+
+### Lag et kontakt oss skjema
+**/src/book-app/contact/contact.component.ts**
+```html
+import { Component } from '@angular/core';
+
+@Component({
+    'selector': 'contact',
+    'template': `
+        <form>
+            <input type="text" name="name" placeholder="Name *">
+            <input type="email" name="email" placeholder="Email">
+            <textarea placeholder="Message *" name="messageText"></textarea>
+            <button type="submit">Contact us</button>
+        </form>
+    `
+})
+export class Contact {}
+```
+
+Dette er utgangspunktet for skjemaet som vi skal bygge videre på.
+Ta en titt i nettleseren at alt ser greit ut så langt..
+
+## Oppgave 4.1 - FormControl og FormGroup
+En FormControl representerer et felt i et skjema.
+En FormGroup er en samling av FormControl.
+
+### Bind <input> til hver sin FormControl
+Nedenfor ser du koden for å knytte sammen et `<input>` til en FormControl fra klassen/komponenten.
+Her er da `contactForm` en property vi ikke enda har skrevet (det gjør vi snart), som igjen har et sett av FormControls. 
+
+**/src/book-app/contact/contact.component.ts**
+```html
+<input type="text" 
+    name="name" 
+    placeholder="Name *"
+    [formControl]="contactForm.controls['name']">
+```
+Gjør det samme for epost og meldingsfeltet.
+
+### Bind skjema til FormGroup
+**/src/book-app/contact/contact.component.ts**
+```html
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
+```
+
+Vi skal snart sette opp `contactForm` og den metoden `onSubmit(value: string)` i klassen snart.
+
+## Oppgave 4.2 - FormBuilder
+Koden du har skrevet til nå kjører ikke særlig bra, vi trenger å sette ting sammen i klassen.
+
+### Importer nødvendige direktiv
+Før du kan sette i gang å bruke forms i Angular trenger komponenten din en rekke komponenter og direktiv.
+
+**/src/book-app/contact/contact.component.ts**
+```javascript
+...
+import {
+  FORM_DIRECTIVES,
+  REACTIVE_FORM_DIRECTIVES,
+  FormBuilder,
+  FormGroup
+} from '@angular/forms';
+
+@Component({
+    'selector': 'contact',
+    directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+...
+```
+
+### Ta i bruk FormBuilder for å lage FormGroup
+La oss se nærmere på det som må gjøres i klassen, nå som vi har gjort ferdig view biten.
+Det første vi må gjøre er å lage vår FormGroup med FormBuilder.
+
+**/src/book-app/contact/contact.component.ts**
+```javascript
+export class Contact {
+    contactForm: FormGroup;
+
+    constructor(formBuilder: FormBuilder) {
+        this.contactForm = formBuilder.group({
+            'email': '',
+            'name': '',
+            'message': ''
+        })
+    }
+
+    onSubmit(value: string): void {
+        console.log('you submitted value: ', value);
+    }
+}
+```
+
+Hvor kommer FormBuilder fra? Dette forklarer vi nærmere senere når vi går gjennom Dependency Injection.
 
 ## 4.1 Binding og NgModel
 De som er kjent med Angular1, vet at binding mellom view og kontroller går begge veier - vi kaller dette 
@@ -821,38 +923,13 @@ muliggjøre 2-veis binding i vår form, bruker vi spesiell syntaks for det:
 <input type="text" [(ngModel)]="myModel.name" name="inputName">
 ```
 
-**Legg til binding til model fra *src/book-app/contact/message.ts***
-```html
-        <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
-          <input autofocus="true"
-                 autocomplete="off" 
-                 [(ngModel)]="model.name" 
-                 type="text" 
-                 [class.error]="name.invalid && !name.pristine"
-                 placeholder="Name *" 
-                 #name="ngModel"
-                 required
-                 name="name">
-          <div class="error" [hidden]="name.valid || name.pristine">
-            Name is required.
-          </div>
-          <input autocomplete="off"
-                 [(ngModel)]="model.email" type="email"
-                 placeholder="Email" name="email">
-          <textarea [(ngModel)]="model.messageText" 
-                    placeholder="Your message *" 
-                    [class.error]="message.invalid && !message.pristine"
-                    #message="ngModel"
-                    required
-                    name="messageText">
-          </textarea>
-          <div class="error" [hidden]="message.valid || message.pristine">
-            Message text is required.
-          </div>
-          <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
-        </form>   
+Som vi kan se bruker vi både "square brackets" og parentes samtidig.
+Hvis du husker fra oppgave 3 så betyr brackets at vi har med input å gjøre, og parentes er for output.
+[()] vil da bety både input og output, en to-veis binding.
 
-```
+### FormBuild
+Det er mange måter å 
+
 
 ## 4.2 Validering
 Angular2 med **template-driven forms** kommer med et sett at validators out-of-box:
@@ -891,42 +968,40 @@ Dette kan vi utnytte ved hjel av *template reference variable* og ngModel. F.eks
 [class.error]="name.invalid && !name.pristine"
 ```
 
-**Ved bruk av *template reference variable* og ngModel sin tilstand, legg til 
- regler som setter css-klasse *error* til input-felt, når den er ikke gyldig.
- La mærke til det, at feilmeldingen og rød farge skal *ikke* vises når man
- kommer første gang til side.**
- ```html
-        <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
-          <input autofocus="true"
-                 autocomplete="off" 
-                 [(ngModel)]="model.name" 
-                 type="text" 
-                 [class.error]="name.invalid && !name.pristine"
-                 placeholder="Name *" 
-                 #name="ngModel"
-                 required
-                 name="name">
-          <div class="error" [hidden]="name.valid || name.pristine">
-            Name is required.
-          </div>
-          <input autocomplete="off"
-                 [(ngModel)]="model.email" type="email"
-                 placeholder="Email" name="email">
-          <textarea [(ngModel)]="model.messageText" 
-                    placeholder="Your message *" 
-                    [class.error]="message.invalid && !message.pristine"
-                    #message="ngModel"
-                    required
-                    name="messageText">
+**Ved bruk av *template reference variable** og ngModel sin tilstand, legg til 
+regler som setter css-klasse *error* til input-felt, når den er ikke gyldig.
+La mærke til det, at feilmeldingen og rød farge skal *ikke* vises når man
+kommer første gang til side.**
+```html
+    <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
+        <input autofocus="true"
+                autocomplete="off" 
+                [(ngModel)]="model.name" 
+                type="text" 
+                [class.error]="name.invalid && !name.pristine"
+                placeholder="Name *" 
+                #name="ngModel"
+                required
+                name="name">
+        <div class="error" [hidden]="name.valid || name.pristine">
+        Name is required.
+        </div>
+        <input autocomplete="off"
+                [(ngModel)]="model.email" type="email"
+                placeholder="Email" name="email">
+        <textarea [(ngModel)]="model.messageText" 
+                placeholder="Your message *" 
+                [class.error]="message.invalid && !message.pristine"
+                #message="ngModel"
+                required
+                name="messageText">
           </textarea>
-          <div class="error" [hidden]="message.valid || message.pristine">
-            Message text is required.
-          </div>
-          <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
-        </form>   
- ```
-
-
+        <div class="error" [hidden]="message.valid || message.pristine">
+        Message text is required.
+        </div>
+        <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
+    </form>   
+```
 
 ## Oppgave 5 Services og DI (dependency injection)
 For å hente data til bøker, skal vi lage en service som komponenter
