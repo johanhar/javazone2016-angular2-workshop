@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Book } from './book.model';
 
 @Component({
@@ -10,5 +10,5 @@ import { Book } from './book.model';
     `
 })
 export class BookRow {
-    book = new Book(1, 'The book title', 'The author', 'ISBN 123', 'Some description');
+    @Input('book-row') book: Book;
 }

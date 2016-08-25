@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
+import { BOOK_DATA } from './book.data';
+import { Book } from './book.model';
 
 @Component({
     'selector': 'books',
@@ -21,8 +23,15 @@ import { BookRow } from './book-row.component';
                 <tr book-row></tr>
             </tbody>
         </table>
+        <p *ngFor="let book of books">{{book.title}}</p>
     `
 })
 export class Books {
     // foreløpig tom
+
+    books: [Book] = BOOK_DATA
+
+    ngOnInit(): void {
+        console.log(BOOK_DATA);
+    }
 }

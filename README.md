@@ -335,7 +335,8 @@ export class About {}
 
 ## Oppgave 2.2 - Definer ruter til hver komponent
 
-**Rediger /src/main.ts**
+### Opprett og bootstrap rutene
+**/src/main.ts**
 ```javascript
 import { bootstrap } from '@angular/platform-browser-dynamic';
 
@@ -383,7 +384,8 @@ bootstrap(BookApp, [
 Hvis vi tar en titt i consolen til nettleseren vår nå finner vi sikkert flere feil.
 Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`.
 
-**Ta i bruk RouterOutlet i /src/book-app/book-app.component.ts**
+### Ta i bruk RouterOutlet
+**/src/book-app/book-app.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { Navbar } from './navbar.component';
@@ -404,7 +406,8 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 export class BookApp {}
 ```
 
-**Ta i bruk RouterLink i /src/book-app/navbar.component.ts**
+### Ta i bruk RouterLink
+**/src/book-app/navbar.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
@@ -461,7 +464,7 @@ Koden du finner på innsiden av **{{...}}** er en expression, det betyr at man k
 ```
 
 La oss teste dette med et enkelt eksempel i vår egen app..
-
+### Vis antall bøker i About komponenten
 **/src/book-app/about/about.component.ts**
 ```javascript
 import { Component } from '@angular/core';
@@ -509,7 +512,8 @@ og disse vil da brukes stjerne-syntaksen. Men dette skal vi ikke gjøre i denne 
 
 La oss teste NgFor i vår egen app.
 
-**Editer /src/book-app/books/books.component.ts**
+### Lag en liste av bøker
+**/src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -532,7 +536,8 @@ Ta en titt under http://localhost:8080/#/books så har vi nå ganske enkelt lage
 ## Oppgave 3.2 - En egen klasse for Bok
 Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript som representerer en bok.
 
-**Opprett /src/book-app/books/book.model.ts**
+### Opprett en Book model
+**/src/book-app/books/book.model.ts**
 ```javascript
 export class Book {
     constructor(
@@ -546,7 +551,7 @@ export class Book {
 
 Bruken av `.model.ts` her har ingenting å si, det er konvensjon vi lager for oss selv, på lik linje med `.component.ts`, eller `.template.html`.
 
-### Tom constructor?
+#### Tom constructor?
 Det stemmer ...
 Vi ønsker ikke at det skal være mulig å lage en bok uten å ha alle felter.
 Hvert argument i constructor vil automatisk bli en property til klassen, og hver property vil bli assigned.
@@ -583,7 +588,8 @@ For hver rad i tabellen ønsker vi å ha en egen komponent.
 Til å starte med er hver rad lik, den samme hardkodet boken.
 Senere vil vi kunne utvide med data fra en server.
 
-**Opprett /src/book-app/books/book-row.component.ts**
+### Opprett en egen komponent til hver rad
+**/src/book-app/books/book-row.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { Book } from './book.model';
@@ -601,7 +607,8 @@ export class BookRow {
 }
 ```
 
-**Opprett /src/book-app/books/books.component.ts**
+### Ta i bruk den nye komponenten i tabellen
+**/src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
@@ -628,9 +635,7 @@ import { BookRow } from './book-row.component';
         </table>
     `
 })
-export class Books {
-    // foreløpig tom
-}
+export class Books {}
 ```
 
 Syntaksen i BookRow sin selector er litt annerledes.
@@ -677,7 +682,7 @@ export class SomeComponent {
 }
 ```
 
-Et alternativ og mer populær måte å gjøre det på er å bruke binde propertien i klassen med annotation `@Input`.
+Et alternativ og mer populær måte å gjøre det på er å binde propertien i klassen med annotation `@Input`.
 
 ```
 @Component({
@@ -689,9 +694,18 @@ export class SomeComponent {
 }
 ```
 
-La oss late som at BookList henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
+Her har man mulighet til å gi et alias til propertien:
+```javascript
+export class SomeComponent {
+    @Input('value') someValue: String;
+}
+```
 
-**Editer /src/book-app/books/book-list.component**
+La oss late som at Books henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
+Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (book-data.ts)
+
+### Endre BookRow til å ta imot sin model som @Input
+**/src/book-app/books/book-row.component**
 ```javascript
 
 ```
@@ -916,6 +930,8 @@ passe data oppover i komponent-tree, bruker man vanligvis *event binding* med
 kustom events. Dette er ikke den eneste måte å passe data oppover i komponentstruktur,
 men når man har direkte parent-child relasjon, er dette en grei måte å gjøre det.
 
+**@simo**: vi bruker ikke lengre BookList!
+
 I vår applikasjon har vi parent-child relasjon mellom komponenter *BookList* og 
 *SearchComponent*. Siden BookList inkluderer *<search>*-tag i sin template, er
  den parent-komponent, og SearchComponent er child-komponent.
@@ -946,6 +962,7 @@ Disse tidspunktene i vår tilfelle er når vi *har fått søkresultat* og når b
 har *skrivet i søkefelt mindre enn 2 tegn*.
 
 ## 7.3 Vis resultater ved events i template
+**@simo:** vi bruker ikke lengre book-list!
 Åpne filen src/book-app/search/book-list.component.ts
 
 Da er vår komponent klar til å sende events, og det som gjenstår, er å definere
