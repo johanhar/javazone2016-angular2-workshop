@@ -813,14 +813,6 @@ Mer om dette senere.
 git checkout -f oppgave4
 ```
 
-**@simo**: kan du døpe om message.ts til message.model.ts når du lager branches og sånn? ... forresten jeg tror ikke vi har bruk for den i det hele tatt
-
-IKKE LENGRE SANT?:
-(Forms er en essensiel del av nesten alle applikasjoner. Det finns mange måter å lage forms i Angular2, men i 
-denne oppgaven fokuserer vi oss på så kalt **template-driven forms**.
-Dette er kanskje den enkleste måten å komme i gang med forms, og lar oss å lage de vangliste funksjonalitetene 
-man trenger, visualisering, validering og submitting, på **deklartiv** måte.)
-
 ### Lag et kontakt oss skjema
 **/src/book-app/contact/contact.component.ts**
 ```html
@@ -916,23 +908,9 @@ export class Contact {
 Hvor kommer FormBuilder fra? Dette forklarer vi nærmere senere når vi går gjennom Dependency Injection.
 Prøv å submit skjema og se hva som blir logget i consolen.
 
-## 4.1 Binding og NgModel
-De som er kjent med Angular1, vet at binding mellom view og kontroller går begge veier - vi kaller dette 
-**2-veis binding**. I utgangspunktet skjer binding i Angular2 i en vei, fra view til komponent. For å
-muliggjøre 2-veis binding i vår form, bruker vi spesiell syntaks for det:
-```html
-<input type="text" [(ngModel)]="myModel.name" name="inputName">
-```
 
-Som vi kan se bruker vi både "square brackets" og parentes samtidig.
-Hvis du husker fra oppgave 3 så betyr brackets at vi har med input å gjøre, og parentes er for output.
-[()] vil da bety både input og output, en to-veis binding.
-
-### FormBuild
-Det er mange måter å 
-
-
-## 4.2 Validering
+## Oppgave 4.3 - Validering
+**@simo**: dette må oppdateres i henhold til ny form/struktur
 Angular2 med **template-driven forms** kommer med et sett at validators out-of-box:
 * required
 * minlength
@@ -949,7 +927,8 @@ Valid input? :{{myVar.valid}}
 **Legg till validering som gjør *name* og *messageText* -felt påbudt.**  
 
 
-## 4.3 Visualisering av validering
+## Oppgave 4.4 - Visualisering av validering
+**@simo**: dette må oppdateres i henhold til ny form/struktur
 I tillegg til kontrollering av tilstand, legger ngModel-directive noen ekstra css-klasser til DOM-element,
 som gir oss muligheten å visualisere tilstanden til vår input felt slik vi ønsker.
 
@@ -1005,6 +984,12 @@ kommer første gang til side.**
 ```
 
 ## Oppgave 5 Services og DI (dependency injection)
+
+### Skift til riktig branch
+```
+git checkout -f oppgave5
+```
+
 For å hente data til bøker, skal vi lage en service som komponenter
 kan utnytte for å søke på bøker, og hente data. Vi må også fortelle til Angular at 
 vår service er tilgjengelig for *dependency injection*, slik at komponenter
@@ -1014,8 +999,7 @@ som vil ha service kan registrere den via DI.
 Servicen vår mangler noen funksjonalitet som du må oppfylle.
 Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.
 
-
-## 5.2 Gjör servicen tilgjengelig for DI
+## 5.2 Gjør servicen tilgjengelig for DI
 For at en komponent skal bli tilgjengelig for DI må annotere den
 med @Injectable() (husk å bruke parenteser, ellers får du mange rare feilmeldinger). 
 Denne annotasjonen skal ligge i *src/book-app/services/book.service.ts*
@@ -1047,6 +1031,12 @@ som skal bli injected. Provider kan være f.eks. factory-klasse, men
 som vanlig er den *klasse som skal bli injected selv*.
 
 ## Oppgave 6 Lifecycle hooks
+
+### Skift til riktig branch
+```
+git checkout -f oppgave6
+```
+
 Hver komponent som vi lager i Angular har sin egen så kallt *lifecycle*.
 Dette består av hendelser som er knyttet til det hva Angular gjør med komponent.
 Typiske sånne hendelser er f.eks. oppretting av komponent, oppdatering, sjekking
@@ -1074,6 +1064,12 @@ bøker vi har. BookService-klasse har en method *numberOfBooks* som du kan
 bruke her.
 
 ## Oppgave 7 Binding til events
+
+### Skift til riktig branch
+```
+git checkout -f oppgave7
+```
+
 Vanlig Angular-applikasjon er et tree av komponenter, hvor data flyter nedover i tree 
 oftest via property-binding ved hjelp av @Input-annotering. Når man har behov å 
 passe data oppover i komponent-tree, bruker man vanligvis *event binding* med
