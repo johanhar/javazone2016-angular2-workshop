@@ -15,5 +15,4 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
         </nav>
     `
 })
-export class Navbar {
-}
+export class Navbar {}

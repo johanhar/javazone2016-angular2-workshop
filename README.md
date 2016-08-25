@@ -59,6 +59,15 @@ Her har vi valgt å definere Component sitt view (HTML) i en egen fil med navnet
 #### Klasse
 Selve logikken til en Component legger vi i klassen. Her kan vi ha variabler og funksjoner som blir tilgjengelige for view/template. Dette gjør at appen vår blir interaktiv for brukeren. Det som for eksempel skal skje når brukeren trykker på en knapp i Component sitt view kan man legge i klassen. Mer om dette senere.
 
+### Gå riktig branch før du starter oppgaven
+Du står sannsynligvis i `master` branchen til prosjektet nå, 
+før du setter i gang med oppgave 1 så må du hoppe over til en egen branch som gir deg riktig utgangspunkt for å sette i gang med oppgavene.
+Åpne en terminal og gå til roten av prosjektmappen.
+
+```
+git checkout -f oppgave1og2
+```
+
 ## Oppgave 1.1 - Vår første component
 ### Opprett appens rot-komponent
 Angular er som sagt et tre av komponenter, vi starter med å opprette selve roten som igjen vil bruke andre komponenter.
@@ -106,7 +115,7 @@ npm start
 
 Gå så til [http://localhost:8080](http://localhost:8080).
 
-## Oppgave 1.3 - Navbar
+## Oppgave 1.3 - Navigasjonsbar
 La oss fortsette med å lage en enkel komponent for navigasjon. Hensikten med denne oppgaven er å vise hvordan en komponent kan bygges opp av andre komponenter. 
 
 #### Directive
@@ -120,11 +129,8 @@ Før man kan bruke andre direktiver og komponenter må man fortelle Angular om d
 // Dette er bare eksempel og ikke en del av oppgaven
 @Component({
   selector: 'product-row',
-  inputs: ['product'],
-  host: {'class': 'item'},
   directives: [ProductImage, ProductDepartment, PriceDisplay],
   template: `
-  <product-image [product]="product"></product-image>
   <div class="content">
     <div class="header">{{ product.name }}</div>
     <div class="meta">
@@ -166,7 +172,6 @@ export class Navbar {}
 ```
 
 ### Editer rot-komponenten
-
 **/src/book-app/book-app.component.ts**
 ```javascript
 import { Component } from '@angular/core';
@@ -188,6 +193,8 @@ import { Navbar } from './navbar.component';
 })
 export class BookApp {}
 ```
+
+Du trenger ikke å kjøre `npm start` om igjen, [http://localhost:8080](http://localhost:8080) oppdateres automatisk ved endringer.
 
 ## Oppgave 2 - Routing
 Du har kanskje hørt uttrykket "Single Page Application". Angular sin router gjør det mulig å endre nettleseren sin URL uten at man gjør et nytt page load, og bytte ut deler av siden med andre komponenter for bestemte ruter.
@@ -419,7 +426,16 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 export class Navbar {}
 ```
 
+Nå burde det være mulig å navigere seg mellom komponenter i appen.
+Som forklart tidligere er det bare den delen av siden hvor man har plassert `<router-outlet>` at man bytter til en ny komponent for hver rute.
+Istedenfor å bruke `<a href="..">` så bruker vi `<a [routerLink]="['rute']"> til å linke mellom ruter. 
+
 ## Oppgave 3 - Template bindings
+
+### Gå riktig branch før du starter oppgaven
+```
+git checkout -f oppgave3
+```
 
 Ta en titt på følgende eksempel:
 
@@ -478,18 +494,18 @@ Syktaksen er litt spesiell, men er enkel å forstå når man først skjønner ta
 ```
 
 Her lager vi en ny `<li>` for hver iterasjon av `items` (som kommer fra klassen til viewet).
-Stjerne (*) i `*ngFor` betyr at vi har med et direktiv å gjøre som går under kategorien [Structural Directives](https://angular.io/docs/ts/latest/guide/structural-directives.html).
+Stjerne i `*ngFor` betyr at vi har med et direktiv å gjøre som går under kategorien [Structural Directives](https://angular.io/docs/ts/latest/guide/structural-directives.html).
 Disse type direktiv vil legge til eller fjerne deler av vårt view ved rendring.
 
 Et godt eksempel er `*ngIf`:
-```
+```html
 <p *ngIf="condition">
   vises bare hvis condition er true
 </p>
 ```
 
 Vi kan lage våre egne direktiv som viser eller skjuler deler av vårt view basert på en tilstand eller data,
-og disse vil da brukes med stjerne (*). Men dette skal vi ikke gjøre i denne workshopen, vi fokusere kun på innebygde direktiv for nå.
+og disse vil da brukes stjerne-syntaksen. Men dette skal vi ikke gjøre i denne workshopen, vi fokusere kun på innebygde direktiv for nå.
 
 La oss teste NgFor i vår egen app.
 
@@ -511,6 +527,8 @@ export class Books {
 }
 ```
 
+Ta en titt under http://localhost:8080/#/books så har vi nå ganske enkelt laget en liste av bøker med `*ngFor`.
+
 ## Oppgave 3.2 - En egen klasse for Bok
 Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript som representerer en bok.
 
@@ -518,11 +536,11 @@ Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript 
 ```javascript
 export class Book {
     constructor(
-        public title: String, 
-        public author: String, 
-        public isbn: Number,
-        public description: String
-    ) {}
+        public id: Number,
+        public title: String,
+        public author: String,
+        public isbn: String,
+        public description: String) {}
 }
 ```
 
@@ -530,18 +548,20 @@ Bruken av `.model.ts` her har ingenting å si, det er konvensjon vi lager for os
 
 ### Tom constructor?
 Det stemmer ...
-Vi ønsker ikke at det skal være mulig å lage en bok uten å ha alle felter: tittel, forfatter og isbn.
+Vi ønsker ikke at det skal være mulig å lage en bok uten å ha alle felter.
 Hvert argument i constructor vil automatisk bli en property til klassen, og hver property vil bli assigned.
 
 Mer eksplesitt kunne vi har skrevet:
 ```javascript
 class Book {
+    id: Number
     title: String;
     author: String;
     isbn: Number;
     description: String;
 
-    constructor(title: String, author: String, isbn: Number, description: String) {
+    constructor(id: Number, title: String, author: String, isbn: Number, description: String) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -563,8 +583,6 @@ For hver rad i tabellen ønsker vi å ha en egen komponent.
 Til å starte med er hver rad lik, den samme hardkodet boken.
 Senere vil vi kunne utvide med data fra en server.
 
-**@simo**: her kan vi ta i bruk http/streams osv ;)
-
 **Opprett /src/book-app/books/book-row.component.ts**
 ```javascript
 import { Component } from '@angular/core';
@@ -579,17 +597,17 @@ import { Book } from './book.model';
     `
 })
 export class BookRow {
-    book = new Book('The book title', 'The author', 123, 'Some description');
+    book = new Book(1, 'The book title', 'The author', 'ISBN 123', 'Some description');
 }
 ```
 
-**Opprett /src/book-app/books/book-list.component.ts**
+**Opprett /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
 
 @Component({
-    'selector': 'book-list',
+    'selector': 'books',
     'directives': [BookRow],
     'template': `
         <table>
@@ -610,7 +628,7 @@ import { BookRow } from './book-row.component';
         </table>
     `
 })
-export class BookList {
+export class Books {
     // foreløpig tom
 }
 ```
@@ -637,23 +655,6 @@ men heller ... :
 </tbody>
 ```
 
-La oss se hvordan dette blir når vi putter det sammen:
-
-**Editer /src/book-app/books/books.component.ts**
-```javascript
-import { Component } from '@angular/core';
-import { BookList } from './book-list.component';
-
-@Component({
-    'selector': 'books',
-    'directives': [BookList],
-    'template': `
-        <book-list></book-list>
-    `
-})
-export class Books {}
-```
-
 ## Oppgave 3.4 - Input
 Akkurat nå er alle bøker like... 
 Hvordan kan vi gi en liste av BookRow hver sin Book model?
@@ -673,6 +674,18 @@ For at `<some-component>` skal kunne ta imot input må den si hvilke properties 
 })
 export class SomeComponent {
     someValue: String;
+}
+```
+
+Et alternativ og mer populær måte å gjøre det på er å bruke binde propertien i klassen med annotation `@Input`.
+
+```
+@Component({
+    'selector': 'some-component',
+    'template': `...`
+})
+export class SomeComponent {
+    @Input() someValue: String;
 }
 ```
 
@@ -696,7 +709,6 @@ Gå så tilbake til BookList og gi hver BookRow sin egen Book fra listen av alle
 ```javascript
 
 ```
-
 
 Plan videre herfra:
  - lag en komponent som skal være listen (<book-list>)
