@@ -901,9 +901,9 @@ export class Contact {
 
     constructor(formBuilder: FormBuilder) {
         this.contactForm = formBuilder.group({
-            'email': '',
-            'name': '',
-            'message': ''
+            'email': [''],
+            'name': [''],
+            'message': ['']
         })
     }
 
@@ -914,6 +914,7 @@ export class Contact {
 ```
 
 Hvor kommer FormBuilder fra? Dette forklarer vi nærmere senere når vi går gjennom Dependency Injection.
+Prøv å submit skjema og se hva som blir logget i consolen.
 
 ## 4.1 Binding og NgModel
 De som er kjent med Angular1, vet at binding mellom view og kontroller går begge veier - vi kaller dette 

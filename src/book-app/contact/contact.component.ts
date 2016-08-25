@@ -25,7 +25,7 @@ import {
 
             <textarea placeholder="Message *" 
                 name="message"
-                [formControl]="contactForm.controls['message']>
+                [formControl]="contactForm.controls['message']">
             </textarea>
 
             <button type="submit">Contact us</button>
