@@ -3,6 +3,13 @@
 
 I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av bøker.
 
+## Notater etter første gjennomgang:
+ - Jeg har editert styles.css
+ - Jeg fjernet <a> tags i BookRow for å gi en innføring i (click) heller
+ - Jeg har laget en book.data.ts fil som ikke er lik den som brukes i oppgave 5, denne skal følge med branchen til oppgave 3
+ - Jeg har fjernet BookList
+ - Jeg har 
+
 ## Før du begynner
  - `npm install`
  - `etc`
@@ -704,33 +711,100 @@ export class SomeComponent {
 La oss late som at Books henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
 Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (book-data.ts)
 
-### Endre BookRow til å ta imot sin model som @Input
+### Endre BookRow til å ta imot Book med @Input
 **/src/book-app/books/book-row.component**
 ```javascript
+import { Component, Input } from '@angular/core';
+import { Book } from './book.model';
 
+@Component({
+    'selector': 'tr[book-row]',
+    'template': `
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.isbn}}</td>
+    `
+})
+export class BookRow {
+    @Input('book-row') book: Book;
+}
 ```
 
-Det vi kan gjøre nå er å gjøre BookRow mottakelig for input på hvilken bok den skal vise.
-
-**Editer /src/book-app/books/book-row.component**
+### Gi hver BookRow sin egen Book
+**/src/book-app/books/books.component**
 ```javascript
+import { Component } from '@angular/core';
+import { BookRow } from './book-row.component';
+import { BOOK_DATA } from './book.data';
+import { Book } from './book.model';
 
+@Component({
+    'selector': 'books',
+    'directives': [BookRow],
+    'template': `
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books" [book-row]="book"></tr>
+            </tbody>
+        </table>
+    `
+})
+export class Books {
+    books: [Book] = BOOK_DATA
+}
 ```
 
-Gå så tilbake til BookList og gi hver BookRow sin egen Book fra listen av alle bøker.
+## Oppgave 3.5 - Output
+Nå har vi sett på input. Hvordan kan en komponent sende output til sin parent og fortelle om events og lignende?
 
-**Editer /src/book-app/books/book-list.component**
+#### (parentes)
+Syntaksen for at en parent (foreldre-komponent) kan ta imot output er slik:
+```html
+<products-list (onProductSelected)="productWasSelected($event)">
+``` 
+
+Metoden `productWasSelected` er noe vi må definere selv, en metode vi ønsker å binde i vår komponent med `onProductSelected` sitt output.
+
+For at ProductsList skal kunne sende fra seg outputs må den si fra om dette med annotation `@Output`:
 ```javascript
-
+class ProductsList {
+    @Output() onProductSelected: EventEmitter<Product>;
+}
 ```
 
-Plan videre herfra:
- - lag en komponent som skal være listen (<book-list>)
- - lag en komponent for hver rad (<book-row>)
- - utvid så med input, fra hardkodet komponenter som alltid viser det samme
- - utvid så med output, click (detaljert visning)
+### Gjør hver rad klikkbar
+Vi skal ikke se nærmere på `EventEmitter` og `@Output` med det første.
+Dette har bare vært en kort innføring for nå.
+Til å begynne med bruker vi Angular sitt innebygde direktiv Click.
 
-Side 84 i boken...
+**/src/book-app/books/books.component.ts**
+```javascript
+<tr *ngFor="let book of books" [book-row]="book" (click)="bookSelected(book)"></tr>
+```
+
+```javascript
+bookSelected(book: Book) {
+    console.log(book);
+}
+```
+
+Consolen din skal nå printe ut boken du klikker på.
+
+Før vi navigerer videre fra tabellen til et eget view med mer detaljer for boken må vi ta en innføring i DI (Dependency Injection).
+Vi må nemlig ha tak i `Router` i vår komponent slik at vi kan gjøre noe lignende:
+```javascript
+bookSelected(book: Book) {
+    this.router.navigate(['/books', book.id]);
+}
+```
+Mer om dette senere.
 
 ## Oppgave 4 - Forms
 

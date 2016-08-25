@@ -16,22 +16,15 @@ import { Book } from './book.model';
                 </tr>
             </thead>
             <tbody>
-                <!-- snart lager vi en NgFor her istedenfor -->
-                <tr book-row></tr>
-                <tr book-row></tr>
-                <tr book-row></tr>
-                <tr book-row></tr>
+                <tr *ngFor="let book of books" [book-row]="book" (click)="bookSelected(book)"></tr>
             </tbody>
         </table>
-        <p *ngFor="let book of books">{{book.title}}</p>
     `
 })
 export class Books {
-    // foreløpig tom
+    books: [Book] = BOOK_DATA;
 
-    books: [Book] = BOOK_DATA
-
-    ngOnInit(): void {
-        console.log(BOOK_DATA);
+    bookSelected(book: Book) {
+        console.log(book);
     }
 }
