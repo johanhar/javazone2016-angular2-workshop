@@ -693,7 +693,7 @@ export class SomeComponent {
 
 Et alternativ og mer populær måte å gjøre det på er å binde propertien i klassen med annotation `@Input`.
 
-```
+```javascript
 @Component({
     'selector': 'some-component',
     'template': `...`
@@ -1051,6 +1051,16 @@ Hva er *provider* da ?
 Provider er en klasse som vet hvordan man lager instanser av klasser
 som skal bli injected. Provider kan være f.eks. være en factory-klasse, men 
 som vanlig er den en klasse som skal bli injected selv.
+
+## 5.3 En detaljert visning av hver bok
+Nå som vi har sett litt på Dependency Injection så kan vi fortsette med listen av bøker.
+
+### Naviger til en detaljert visning av valgt bok
+Når brukeren trykker på en bok i tabellen av bøker, så skjer det ingenting akkurat nå, vi bare logger noe til console.
+
+**@simo**: jeg gikk tom for tid her, kan du fortsette? :) 
+husk å forklar hvorfor vi ikke likevel trenger 'providers' nå når vi skal injecte Router i constructoren (fordi den er globalt sett provided, sant?) 
+se oppgave 3.5 for mer info...
 
 ## Oppgave 6 Lifecycle hooks
 
