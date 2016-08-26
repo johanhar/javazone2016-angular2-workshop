@@ -165,4 +165,6 @@ input.error, textarea.error {
     color: black;
 }
 
-
+.center {
+    text-align: center;
+}

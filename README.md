@@ -839,7 +839,10 @@ Ta en titt i nettleseren at alt ser greit ut så langt..
 
 ## Oppgave 4.1 - FormControl og FormGroup
 En FormControl representerer et felt i et skjema.
-En FormGroup er en samling av FormControl.
+En FormGroup er en samling av én eller flere FormControl.
+
+Skjemaet vi har startet på har tre felter, vi vil altså trenge tre FormControl og én FormGroup i vår komponent sin klasse.
+Vi kommer altså til å binde hvert `<input>` og `<textarea>` til en FormControl i klassen, samt binde `<form>` til en FormGroup.
 
 ### Bind <input> til hver sin FormControl
 Nedenfor ser du koden for å knytte sammen et `<input>` til en FormControl fra klassen/komponenten.
@@ -860,7 +863,7 @@ Gjør det samme for epost og meldingsfeltet.
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
 ```
 
-Vi skal snart sette opp `contactForm` og den metoden `onSubmit(value: string)` i klassen snart.
+Vi skal snart sette opp `contactForm` og den metoden `onSubmit(value: string)` i klassen.
 
 ## Oppgave 4.2 - FormBuilder
 Koden du har skrevet til nå kjører ikke særlig bra, vi trenger å sette ting sammen i klassen.
@@ -910,80 +913,97 @@ export class Contact {
 Hvor kommer FormBuilder fra? Dette forklarer vi nærmere senere når vi går gjennom Dependency Injection.
 Prøv å submit skjema og se hva som blir logget i consolen.
 
+## Opgpave 4.3 - Feedback ved submit
+Det er kanskje litt kjedelig å bare logge til console, la oss prøve å gjøre appen litt mer "ekte" med å gi en tilbakemelding ved submit.
 
-## Oppgave 4.3 - Validering
-**@simo**: dette må oppdateres i henhold til ny form/struktur
-Angular2 med **template-driven forms** kommer med et sett at validators out-of-box:
-* required
-* minlength
-* maxlength
-* pattern
+### Legg til følgende kode i Contact komponenten
+**/src/book-app/contact/contact.component.ts**
+```javascript
+// Dette er ikke hele filen, bare det som du skal legge inn ekstra på riktige steder
+@Component({
+    'template': `
+        <p class="center" *ngIf="submitted">Thank you for contacting us!</p>
+    `
+})
+export class Contact {
+    contactForm: FormGroup;
+    submitted: boolean = false;
 
-Med kombinasjon av ngModel og disse validatorne, får man lett tilgang til tilstanden av form med hjelp av 
-*template reference variable* 
-```html
-<input #myVar="ngModel" type="text" [(ngModel)]="myModel.name" name="inputName">
-Valid input? :{{myVar.valid}}
+    onSubmit(value: string): void {
+        console.log('you submitted value: ', value);
+        this.contactForm.reset();
+        this.submitted = true;
+
+        setTimeout(() => {
+            this.submitted = false;
+        }, 2000);
+    }
+}
 ```
 
-**Legg till validering som gjør *name* og *messageText* -felt påbudt.**  
+Som vi har snakket om før så vil `<p *ngIf="submitted">` sitt innhold vises/skjules når `submitted` endres.
+Angular tar seg av endringer i viewet, man trenger bare å sette `submitted` og så vil resten skje automatisk.
 
+## Oppgave 4.4 - Validering
+Som du kan se har vi prøvd å merke navn og melding som obligatorisk med å bruke stjerne, 
+en typisk måte å si til brukeren at dette feltet må være med (`placeholder="Name *"`).
+Vi har også et felt for epost, som nå valideres av nettleseren din (HTML5).
 
-## Oppgave 4.4 - Visualisering av validering
-**@simo**: dette må oppdateres i henhold til ny form/struktur
-I tillegg til kontrollering av tilstand, legger ngModel-directive noen ekstra css-klasser til DOM-element,
-som gir oss muligheten å visualisere tilstanden til vår input felt slik vi ønsker.
+### Slå av HTML5 validering
+Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå av HTML5 validering.
 
-NgModel tilstand og tilsvarende css-klasse:
-* myModel.valid -> ng-valid
-* myModel.invalid -> ng-invalid
-* myModel.touched -> ng-touched
-* myModel.dirty -> ng-dirty
-* myModel.pristine -> ng-pristine
-
-Men hvis man ønsker bruke css-klasser med noen logikk, må man bruke følgende syntaks:
+**/src/book-app/contact/contact.component.ts**
 ```html
-<div [class.myClass]="myBooleanExpression">My div</div>
-```
-Dette kan vi utnytte ved hjel av *template reference variable* og ngModel. F.eks:
-```html
-[class.error]="name.invalid && !name.pristine"
+<form [formGroup]="contactForm" 
+    (ngSubmit)="onSubmit(contactForm.value)" 
+    novalidate>
+
+<input type="email" 
+    name="email" 
+    placeholder="Email"
+    [formControl]="contactForm.controls['email']" 
+    novalidate>
 ```
 
-**Ved bruk av *template reference variable** og ngModel sin tilstand, legg til 
-regler som setter css-klasse *error* til input-felt, når den er ikke gyldig.
-La mærke til det, at feilmeldingen og rød farge skal *ikke* vises når man
-kommer første gang til side.**
+### Legg til feilmeldinger
+Det er mange måter å vise feilmeldinger på, 
+vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type feil i bunnen av skjema i en samlet `<div>`.
+
+**/src/book-app/contact/contact.component.ts**
 ```html
-    <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
-        <input autofocus="true"
-                autocomplete="off" 
-                [(ngModel)]="model.name" 
-                type="text" 
-                [class.error]="name.invalid && !name.pristine"
-                placeholder="Name *" 
-                #name="ngModel"
-                required
-                name="name">
-        <div class="error" [hidden]="name.valid || name.pristine">
-        Name is required.
-        </div>
-        <input autocomplete="off"
-                [(ngModel)]="model.email" type="email"
-                placeholder="Email" name="email">
-        <textarea [(ngModel)]="model.messageText" 
-                placeholder="Your message *" 
-                [class.error]="message.invalid && !message.pristine"
-                #message="ngModel"
-                required
-                name="messageText">
-          </textarea>
-        <div class="error" [hidden]="message.valid || message.pristine">
-        Message text is required.
-        </div>
-        <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
-    </form>   
+<div class="center">
+    <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
+    <p *ngIf="!contactForm.controls['email'].valid && contactForm.controls['email'].touched">Email is invalid</p>
+    <p *ngIf="!contactForm.controls['message'].valid && contactForm.controls['message'].touched">Message is required</p>
+</div>
 ```
+
+### Legg på validering
+For at validering skal fungere må vi si til hver enkelt FormControl hva slags validering som gjelder for den.
+
+**/src/book-app/contact/contact.component.ts**
+```javascript
+import {
+  FORM_DIRECTIVES,
+  REACTIVE_FORM_DIRECTIVES,
+  FormBuilder,
+  FormGroup,
+  Validators // må også importeres når vi skal bruke validering 
+} from '@angular/forms';
+
+// Legg til validering for hvert felt
+constructor(formBuilder: FormBuilder) {
+    this.contactForm = formBuilder.group({
+        'email': ['', Validators.pattern('^[^ ]+@[^ ]+\\.[^ ]+$')],
+        'name': ['', Validators.required],
+        'message': ['', Validators.required]
+    })
+}
+```
+
+Dette er helt enkel validering.
+Det er mye mer man kan gjøre med forms og validering, 
+men for nå i denne workshopen ser vi oss ferdige og går videre til andre oppgaver.
 
 ## Oppgave 5 Services og DI (dependency injection)
 
