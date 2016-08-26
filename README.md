@@ -1013,22 +1013,22 @@ git checkout -f oppgave5
 ```
 
 For å hente data til bøker, skal vi lage en service som komponenter
-kan utnytte for å søke på bøker, og hente data. Vi må også fortelle til Angular at 
+kan utnytte for å søke etter bøker. Vi må også fortelle til Angular at 
 vår service er tilgjengelig for *dependency injection*, slik at komponenter
-som vil ha service kan registrere den via DI.
+som vil ha servicen kan få tak i den.
 
 ## 5.1 Lage en service
 Servicen vår mangler noen funksjonalitet som du må oppfylle.
 Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.
 
 ## 5.2 Gjør servicen tilgjengelig for DI
-For at en komponent skal bli tilgjengelig for DI må annotere den
+For at en komponent skal bli tilgjengelig for DI må du annotere den
 med @Injectable() (husk å bruke parenteser, ellers får du mange rare feilmeldinger). 
 Denne annotasjonen skal ligge i *src/book-app/services/book.service.ts*
 
 De komponentene som skal bruke vår @Injectable() service-klasse må:
 * sette 'providers' i en @Component-annotasjonen 
-* legge til parametre i konstruktor som skal injectes
+* legge til parametre i constructor som skal injectes
 
 F.eks. 
 ```javascript
@@ -1045,12 +1045,12 @@ class MyComponent {
 }
 
 ```
-Disse endringene skal lages i *src/book-app/books/book-list.component.ts* 
+Disse endringene skal lages i *src/book-app/books/books.component.ts* 
 
 Hva er *provider* da ?
-Provider er en klasse, som vet hvordan man lager instanser av klasser
-som skal bli injected. Provider kan være f.eks. factory-klasse, men 
-som vanlig er den *klasse som skal bli injected selv*.
+Provider er en klasse som vet hvordan man lager instanser av klasser
+som skal bli injected. Provider kan være f.eks. være en factory-klasse, men 
+som vanlig er den en klasse som skal bli injected selv.
 
 ## Oppgave 6 Lifecycle hooks
 
@@ -1059,10 +1059,11 @@ som vanlig er den *klasse som skal bli injected selv*.
 git checkout -f oppgave6
 ```
 
-Hver komponent som vi lager i Angular har sin egen så kallt *lifecycle*.
-Dette består av hendelser som er knyttet til det hva Angular gjør med komponent.
-Typiske sånne hendelser er f.eks. oppretting av komponent, oppdatering, sjekking
-og sletting av komponent. Ved å implementer spesielle *interfaces* som Angular
+Angular har ansvaret for å håndtere dine komponenter og dette kommer med diverse hendelser.
+Hver komponent som vi lager i Angular har en så kalt *lifecycle*.
+Slike hendelser som inngår i komponenten sin lifecycle er oppretting av komponent, oppdatering og sletting.
+
+Ved å implementer spesielle *interfaces* som Angular
 tilbyr, kan vi knytte vår egen funksjonalitet til disse hendelser. 
 
 De mest vanlige interfaces er:
@@ -1079,11 +1080,11 @@ class MyComponent implements OnInit {
 }
 ```
 
-## 6.1 Vis antall bøker på 'about'-side 
-Ved hjelp av OnInit-interface, implementer funksjonalitet i en fil
-*src/book-app/about/about.component.ts* som skal vise total antall av
-bøker vi har. BookService-klasse har en method *numberOfBooks* som du kan
-bruke her.
+### Vis antall bøker på About siden
+Ved hjelp av BookService-klassen skal du vise antall bøker i bibliotek.
+Her må du bruke OnInit-interfacet.
+
+**simo: forklar hvorfor kan vi egentlig ikke bare gjøre dette i constructoren til About, men må bruke oninit..?**
 
 ## Oppgave 7 Binding til events
 
