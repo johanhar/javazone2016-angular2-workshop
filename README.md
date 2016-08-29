@@ -652,7 +652,7 @@ Vi sier at man skal kun bruke komponenten som en attributt på et html element, 
 Dette gjør vi for å slippe at Angular rendrer følgende:
 ```html
 <tbody>
-    <book-row> <!-- ikke gyldig html i tbody -->
+    <book-row> <!-- Ikke gyldig html i tbody, browseren vil ikke vise dette. -->
         <tr>
             <td>...</td>
         </tr>
