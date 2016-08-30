@@ -523,7 +523,7 @@ og disse vil da brukes stjerne-syntaksen. Men dette skal vi ikke gjøre i denne 
 La oss teste NgFor i vår egen app.
 
 ### Lag en liste av bøker
-**Opprett en fil: /src/book-app/books/books.component.ts**
+**Legg til koden i filen: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -712,8 +712,8 @@ export class SomeComponent {
 ```
 
 La oss late som at Books henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
-Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (/src/book-app/books/book-data.ts)
-
+Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (/src/book-app/books/book.data.ts.tmp)
+### Endre navnet til filen book.data.ts.tmp til book.data.ts (altså fjern .tmp fra navnet)
 ### Endre BookRow til å ta imot Book med @Input
 **/src/book-app/books/book-row.component**
 ```javascript
