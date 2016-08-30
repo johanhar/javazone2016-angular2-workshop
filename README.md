@@ -76,6 +76,7 @@ før du setter i gang med oppgave 1 så må du hoppe over til en egen branch som
 ```
 git checkout -f oppgave1-2
 ```
+Det er viktig at du bruker **-f opsjonen** i kommandoen!
 
 ## Oppgave 1.1 - Vår første component
 ### Opprett appens rot-komponent
@@ -209,7 +210,7 @@ Du trenger ikke å kjøre `npm start` om igjen, [http://localhost:8080](http://l
 Du har kanskje hørt uttrykket "Single Page Application". Angular sin router gjør det mulig å endre nettleseren sin URL uten at man gjør et nytt page load, og bytte ut deler av siden med andre komponenter for bestemte ruter.
 
 #### RouterConfig
-Brukes til å beskrive appens ruter.
+Brukes til å beskrive appens ruter, for eksempel:
 
 ```javascript
 // Dette er bare et eksempel og ikke en del av oppgaven
@@ -231,7 +232,7 @@ Ovenfor ser vi at man bootstrapper appen samtidig som vi forteller Angular hvilk
 Man kan for eksempel definere alle ruter ved bootstrapping på et sted (som her), eller la hver komponent selv fortelle hvilke ruter den tilbyr.
 
 #### RouterOutlet
-Fungerer som en placeholder for innholdet til en rute.
+Fungerer som en placeholder for innholdet til en rute, for eksempel:
 
 ```javascript
 // Dette er bare eksempel og ikke en del av oppgaven
@@ -309,7 +310,7 @@ Foreløpig har vi bare én TypeScript fil i hver komponent-mappe, senere når ap
 ```
 
 
-**/src/book-app/books/books.component.ts**
+**Opprett en fil: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -320,7 +321,7 @@ import { Component } from '@angular/core';
 export class Books {}
 ```
 
-**/src/book-app/contact/contact.component.ts**
+**Opprett en fil: /src/book-app/contact/contact.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -331,7 +332,7 @@ import { Component } from '@angular/core';
 export class Contact {}
 ```
 
-**/src/book-app/about/about.component.ts**
+**Opprett en fil: /src/book-app/about/about.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -416,7 +417,7 @@ export class BookApp {}
 ```
 
 ### Ta i bruk RouterLink
-**/src/book-app/navbar.component.ts**
+**Opprett en fil: /src/book-app/navbar.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
