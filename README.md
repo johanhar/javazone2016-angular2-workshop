@@ -74,7 +74,7 @@ før du setter i gang med oppgave 1 så må du hoppe over til en egen branch som
 Åpne en terminal og gå til roten av prosjektmappen.
 
 ```
-git checkout -f oppgave1og2
+git checkout -f oppgave1-2
 ```
 
 ## Oppgave 1.1 - Vår første component
