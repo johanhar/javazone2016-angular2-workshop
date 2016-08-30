@@ -1,53 +1,66 @@
-import {Component} from '@angular/core';
-import {Message} from "./message";
+import { Component } from '@angular/core';
+import {
+  FORM_DIRECTIVES,
+  REACTIVE_FORM_DIRECTIVES,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 
 @Component({
     'selector': 'contact',
-    'directives': [],
+    directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     'template': `
-        <h1 *ngIf="!submitted">Contact us</h1>
-        <form *ngIf="!submitted" #messageForm="ngForm" (ngSubmit)="submitForm()" novalidate>
-          <input autofocus="true"
-                 autocomplete="off" 
-                 [(ngModel)]="model.name" 
-                 type="text" 
-                 [class.error]="name.invalid && !name.pristine"
-                 placeholder="Name *" 
-                 #name="ngModel"
-                 required
-                 name="name">
-          <div class="error" [hidden]="name.valid || name.pristine">
-            Name is required.
-          </div>
-          <input autocomplete="off"
-                 [(ngModel)]="model.email" type="email"
-                 placeholder="Email" name="email">
-          <textarea [(ngModel)]="model.messageText" 
-                    placeholder="Your message *" 
-                    [class.error]="message.invalid && !message.pristine"
-                    #message="ngModel"
-                    required
-                    name="messageText">
-          </textarea>
-          <div class="error" [hidden]="message.valid || message.pristine">
-            Message text is required.
-          </div>
-          <input [hidden]="!messageForm.form.valid" type="submit" value="Send">
-        </form>   
-        <h1 *ngIf="submitted">Thank you!</h1>
-     `
-})
-export class ContactForm {
-    submitted: boolean = false;
-    model = new Message('', '', '');
+        <p class="center" *ngIf="submitted">Thank you for contacting us!</p>
 
-    submitForm():void {
-        console.log("Submitting form with data " + JSON.stringify(this.model));
+        <form [formGroup]="contactForm" 
+            (ngSubmit)="onSubmit(contactForm.value)" 
+            novalidate>
+
+            <input type="text" 
+                name="name" 
+                placeholder="Name *"
+                [formControl]="contactForm.controls['name']">
+
+            <input type="email" 
+                name="email" 
+                placeholder="Email"
+                [formControl]="contactForm.controls['email']" 
+                novalidate>
+
+            <textarea placeholder="Message *" 
+                name="message"
+                [formControl]="contactForm.controls['message']">
+            </textarea>
+
+            <button type="submit">Contact us</button>
+        </form>
+        <div class="center">
+            <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
+            <p *ngIf="!contactForm.controls['email'].valid && contactForm.controls['email'].touched">Email is invalid</p>
+            <p *ngIf="!contactForm.controls['message'].valid && contactForm.controls['message'].touched">Message is required</p>
+        </div>
+    `
+})
+export class Contact {
+    contactForm: FormGroup;
+    submitted: boolean = false;
+
+    constructor(formBuilder: FormBuilder) {
+        this.contactForm = formBuilder.group({
+            'email': ['', Validators.pattern('^[^ ]+@[^ ]+\\.[^ ]+$')],
+            'name': ['', Validators.required],
+            'message': ['', Validators.required]
+        })
+    }
+
+    onSubmit(value: string): void {
+        console.log('you submitted value: ', value);
+        this.contactForm.reset();
         this.submitted = true;
-        this.model = new Message('', '', '');
+
         setTimeout(() => {
             this.submitted = false;
         }, 2000);
     }
-
 }

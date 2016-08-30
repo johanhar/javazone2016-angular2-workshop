@@ -3,7 +3,7 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { BookApp } from './book-app/book-app.component';
 import { About } from './book-app/about/about.component';
 import { Books } from './book-app/books/books.component';
-import { ContactForm } from './book-app/contact/contact.component';
+import { Contact } from './book-app/contact/contact.component';
 
 import {bind, Component} from '@angular/core';
 import {
@@ -33,7 +33,7 @@ const routes: RouterConfig = [
     },
     {
         path: 'contact',
-        component: ContactForm
+        component: Contact
     }
 ];
 

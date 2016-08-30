@@ -1009,7 +1009,7 @@ men for nå i denne workshopen ser vi oss ferdige og går videre til andre oppga
 
 ### Skift til riktig branch
 ```
-git checkout -f oppgave5
+git checkout -f oppgave5-7
 ```
 
 For å hente data til bøker, skal vi lage en service som komponenter
@@ -1052,22 +1052,40 @@ Provider er en klasse som vet hvordan man lager instanser av klasser
 som skal bli injected. Provider kan være f.eks. være en factory-klasse, men 
 som vanlig er den en klasse som skal bli injected selv. Altså i vår tilfelle BookService-klasse.
 
+**Ta i bruk bookService i src/book-app/books/books.component.ts**
+Linjen 
+```javascript
+// this.books = this.bookService.getAll();
+```
+er kommentert ut. Ta den i bruk.
+
 ## 5.3 En detaljert visning av hver bok
 Nå som vi har sett litt på Dependency Injection så kan vi fortsette med listen av bøker.
 
 ### Naviger til en detaljert visning av valgt bok
 Når brukeren trykker på en bok i tabellen av bøker, så skjer det ingenting akkurat nå, vi bare logger noe til console.
+For at brukeren kan navigere til detaljert visning av en bok,
+må du først injisere Router-service i constructor:
 
-**@simo**: jeg gikk tom for tid her, kan du fortsette? :) 
-husk å forklar hvorfor vi ikke likevel trenger 'providers' nå når vi skal injecte Router i constructoren (fordi den er globalt sett provided, sant?) 
-se oppgave 3.5 for mer info...
+**Endre koden i src/book-app/books/books.component.ts**
+```javascript
+    constructor(private bookService: BookService, private router: Router) {
+       }
+```
+La merke at vi trenger **ikke** å endre 'providers' i komponenten,
+siden Angular tilbyr denne servicen automatisk til den scopen hvor vår komponent er.
+Navigering til detaljer visning er ikke ferdig ennå.
+
+**Endre koden i metoden bookSelected src/book-app/books/books.component.ts**
+
+```javascript
+this.router.navigate(['/books', book.id]);
+```
+
+Da kan du teste å navigere videre fra bok-listen!
+
 
 ## Oppgave 6 Lifecycle hooks
-
-### Skift til riktig branch
-```
-git checkout -f oppgave6
-```
 
 Angular har ansvaret for å håndtere dine komponenter og dette kommer med diverse hendelser.
 Hver komponent som vi lager i Angular har en så kalt *lifecycle*.
@@ -1092,16 +1110,10 @@ class MyComponent implements OnInit {
 
 ### Vis antall bøker på About siden
 Ved hjelp av BookService-klassen skal du vise antall bøker i bibliotek.
-Her må du bruke OnInit-interfacet.
+Her må du bruke OnInit-interfacet.  Vi kunne selvsagt også bare kalle servicen i en constructor til klasse, men det er trygger og bedre å la constructoren bare initialisere attributer til klassen, og gjøre ting som krever mer jobb i ngOnInit-metoden.
 
-**simo: forklar hvorfor kan vi egentlig ikke bare gjøre dette i constructoren til About, men må bruke oninit..?**
+**Endre koden etter instruksjoner i filen src/book-app/about/about.component.ts**
 
-## Oppgave 7 Binding til events
-
-### Skift til riktig branch
-```
-git checkout -f oppgave7
-```
 
 Vanlig Angular-applikasjon er et tree av komponenter, hvor data flyter nedover i tree 
 oftest via property-binding ved hjelp av @Input-annotering. Når man har behov å 
@@ -1114,10 +1126,10 @@ I vår applikasjon har vi parent-child relasjon mellom komponenter *Books* og
  den parent-komponent, og SearchComponent er child-komponent.
  Når brukeren utfører søk og får resultater, må fi fortelle nå oppover i strukturen
  at vi har noe som vi ville vise til brukeren.
- Dette kan vi oppnå ved å lage vår egen *custome event* og reagere på.
+ Dette kan vi oppnå ved å lage vår egen *custome event* og reagere på den.
 
 ## 7.1 Lage en custom event for resultater
-Åpne filen src/book-app/search/search-component.ts
+**Åpne filen src/book-app/search/search-component.ts**
 Der skal vi ha vår custom-event som er av type *EventEmitter*.
 I tillegg til det må vi annotere det slik at Angular kan registrer den.
 Riktig annotasjon her er *@Output()*.
@@ -1139,7 +1151,7 @@ Disse tidspunktene i vår tilfelle er når vi *har fått søkresultat* og når b
 har *skrivet i søkefelt mindre enn 2 tegn*.
 
 ## 7.3 Vis resultater ved events i template
-Åpne filen src/book-app/books/books.component.ts
+**Åpne filen src/book-app/books/books.component.ts**
 
 Da er vår komponent klar til å sende events, og det som gjenstår, er å definere
 hvordan vi reagerer på dem i parent-komponent. 
@@ -1147,5 +1159,12 @@ Med andre ord: vi skal *binde på event* i vår parent-komponents template.
 
 F.eks.
 ```html
-<mytag (onMyCustomEvent)='myMethodCall()'></mytag>
+<mytag (onMyCustomEvent)='myMethodCall($event)'></mytag>
 ```
+La merke hvordan man viderefører *payload* fra event til metode-kall ved å bruke '$event'-argument.
+
+Da kan du søke bøker og se resultater i bok-lista med en gang vi har noenting å vise!
+ 
+Dette var også siste oppgave, og din applikasjonen er ferdig nå.
+
+**Takk for deltagelse!!**

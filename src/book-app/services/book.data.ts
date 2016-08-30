@@ -1,4 +1,5 @@
-export const BOOK_DATA = [
+import {Book} from "../books/book.model";
+export const BOOK_DATA: Book[] = [
     {
         id: 1,
         title: "Java Testing with Spock",
