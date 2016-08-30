@@ -448,6 +448,7 @@ Istedenfor å bruke `<a href="..">` så bruker vi `<a [routerLink]="['rute']"> t
 ```
 git checkout -f oppgave3
 ```
+Det er viktig at du bruker **-f opsjonen** i kommandoen!
 
 Ta en titt på følgende eksempel:
 
@@ -474,7 +475,7 @@ Koden du finner på innsiden av **{{...}}** er en expression, det betyr at man k
 
 La oss teste dette med et enkelt eksempel i vår egen app..
 ### Vis antall bøker i About komponenten
-**/src/book-app/about/about.component.ts**
+**Endre koden i filen: /src/book-app/about/about.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -522,7 +523,7 @@ og disse vil da brukes stjerne-syntaksen. Men dette skal vi ikke gjøre i denne 
 La oss teste NgFor i vår egen app.
 
 ### Lag en liste av bøker
-**/src/book-app/books/books.component.ts**
+**Opprett en fil: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -546,7 +547,7 @@ Ta en titt under http://localhost:8080/#/books så har vi nå ganske enkelt lage
 Istedenfor å bruke et array av strings, så kan vi lage en klasse i TypeScript som representerer en bok.
 
 ### Opprett en Book model
-**/src/book-app/books/book.model.ts**
+**Opprett en fil: /src/book-app/books/book.model.ts**
 ```javascript
 export class Book {
     constructor(
@@ -598,7 +599,7 @@ Til å starte med er hver rad lik, den samme hardkodet boken.
 Senere vil vi kunne utvide med data fra en server.
 
 ### Opprett en egen komponent til hver rad
-**/src/book-app/books/book-row.component.ts**
+**Opprett en fil: /src/book-app/books/book-row.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { Book } from './book.model';
@@ -617,7 +618,7 @@ export class BookRow {
 ```
 
 ### Ta i bruk den nye komponenten i tabellen
-**/src/book-app/books/books.component.ts**
+**Opprett en fil: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
@@ -711,7 +712,7 @@ export class SomeComponent {
 ```
 
 La oss late som at Books henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
-Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (book-data.ts)
+Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (/src/book-app/books/book-data.ts)
 
 ### Endre BookRow til å ta imot Book med @Input
 **/src/book-app/books/book-row.component**
@@ -787,10 +788,11 @@ Dette har bare vært en kort innføring for nå.
 Til å begynne med bruker vi Angular sitt innebygde direktiv Click.
 
 **/src/book-app/books/books.component.ts**
+Endre koden i template:
 ```javascript
 <tr *ngFor="let book of books" [book-row]="book" (click)="bookSelected(book)"></tr>
 ```
-
+Legg til en metode i Books-klasse.
 ```javascript
 bookSelected(book: Book) {
     console.log(book);
