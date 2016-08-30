@@ -1045,12 +1045,12 @@ class MyComponent {
 }
 
 ```
-Disse endringene skal lages i *src/book-app/books/books.component.ts* 
+**Legg til providers og constructor i src/book-app/books/books.component.ts** 
 
 Hva er *provider* da ?
 Provider er en klasse som vet hvordan man lager instanser av klasser
 som skal bli injected. Provider kan være f.eks. være en factory-klasse, men 
-som vanlig er den en klasse som skal bli injected selv.
+som vanlig er den en klasse som skal bli injected selv. Altså i vår tilfelle BookService-klasse.
 
 ## 5.3 En detaljert visning av hver bok
 Nå som vi har sett litt på Dependency Injection så kan vi fortsette med listen av bøker.
