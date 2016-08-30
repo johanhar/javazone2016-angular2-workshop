@@ -814,9 +814,10 @@ Mer om dette senere.
 ```
 git checkout -f oppgave4
 ```
+Det er viktig at du bruker **-f opsjonen** i kommandoen!
 
 ### Lag et kontakt oss skjema
-**/src/book-app/contact/contact.component.ts**
+**Endre koden i filen: /src/book-app/contact/contact.component.ts**
 ```html
 import { Component } from '@angular/core';
 
@@ -848,7 +849,7 @@ Vi kommer altså til å binde hvert `<input>` og `<textarea>` til en FormControl
 Nedenfor ser du koden for å knytte sammen et `<input>` til en FormControl fra klassen/komponenten.
 Her er da `contactForm` en property vi ikke enda har skrevet (det gjør vi snart), som igjen har et sett av FormControls. 
 
-**/src/book-app/contact/contact.component.ts**
+**Endre koden i filen: /src/book-app/contact/contact.component.ts**
 ```html
 <input type="text" 
     name="name" 
@@ -858,7 +859,7 @@ Her er da `contactForm` en property vi ikke enda har skrevet (det gjør vi snart
 Gjør det samme for epost og meldingsfeltet.
 
 ### Bind skjema til FormGroup
-**/src/book-app/contact/contact.component.ts**
+**Endre koden i filen: /src/book-app/contact/contact.component.ts**
 ```html
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
 ```
@@ -871,7 +872,7 @@ Koden du har skrevet til nå kjører ikke særlig bra, vi trenger å sette ting 
 ### Importer nødvendige direktiv
 Før du kan sette i gang å bruke forms i Angular trenger komponenten din en rekke komponenter og direktiv.
 
-**/src/book-app/contact/contact.component.ts**
+**Endre koden i filen: /src/book-app/contact/contact.component.ts**
 ```javascript
 ...
 import {
@@ -1000,6 +1001,8 @@ constructor(formBuilder: FormBuilder) {
     })
 }
 ```
+
+Nå kan du prøve å sende formen, og se om valideringen virkelig fungerer!
 
 Dette er helt enkel validering.
 Det er mye mer man kan gjøre med forms og validering, 
