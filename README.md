@@ -69,7 +69,6 @@ git checkout -f oppgave1-2
 ```
 Det er viktig at du bruker **-f opsjonen** i kommandoen!
 
-## Oppgave 1.1 - Vår første component
 ### Opprett appens rot-komponent
 Angular er som sagt et tre av komponenter, vi starter med å opprette selve roten som igjen vil bruke andre komponenter.
 
@@ -86,10 +85,12 @@ import { Component } from '@angular/core';
 export class BookApp {}
 ```
 
-## Oppgave 1.2 - Bootstrap appen
-En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. Resten av appen har sitt utspring fra rot-komponenten.
+Vi er ikke helt klar til å bygge og kjøre appen enda, først må vi bootstrappe rot-komponenten.
 
-### Rediger følgende filer
+### Bootstrap appen
+En Angular applikasjon må bootstrappes med rot-komponenten. 
+Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. 
+Resten av appen har sitt utspring fra rot-komponenten.
 
 **/src/main.ts**
 ```javascript
@@ -116,7 +117,7 @@ npm start
 
 Gå så til [http://localhost:8080](http://localhost:8080).
 
-## Oppgave 1.3 - Navigasjonsbar
+## Oppgave 1.2 - Navigasjonsbar
 La oss fortsette med å lage en enkel komponent for navigasjon. Hensikten med denne oppgaven er å vise hvordan en komponent kan bygges opp av andre komponenter. 
 
 #### Directive
