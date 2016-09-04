@@ -100,6 +100,11 @@ import { BookApp } from './book-app/book-app.component';
 bootstrap(BookApp, []);
 ```
 
+For å gi en kort forklaring på metodekallet `bootstrap(Component, [dependencies])` 
+så vil Angular starte applikasjonen med BookApp som rot-komponent, 
+og i det tomme arrayet har vi mulighet til å oppgi avhengigheter som vil være tilgjengelige 
+hvor som helst i appen for alle komponenter som skulle trenge dette.
+
 **/src/index.html**
 ```html
 ...
