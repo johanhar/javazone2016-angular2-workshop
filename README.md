@@ -128,7 +128,10 @@ La oss fortsette med å lage en enkel komponent for navigasjon. Hensikten med de
 #### Directive
 Hvis du kommer fra Angular 1 har du sikkert hørt om Directive. 
 Angular 2 bruker fortsatt begrepet direktiv, det er nemlig sånn at Component er en subtype av Directive. 
-Det finnes flere typer direktiv, hvor komponent er en av typene.
+Det finnes tre typer direktiv, hvor Component er en av typene. "Structural directives" og "Attribute directives" er de to andre.
+Du kan lese mer om dette [her](https://angular.io/docs/ts/latest/guide/attribute-directives.html).
+
+
 
 Før man kan bruke andre direktiver og komponenter må man fortelle Angular om dette. Dette kan gjøres i metadata/annotation til komponenten.
 
