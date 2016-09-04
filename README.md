@@ -238,7 +238,7 @@ Fungerer som en placeholder for innholdet til en rute, for eksempel:
 // Dette er bare eksempel og ikke en del av oppgaven
 @Component({
   selector: 'router-app',
-  directives: [ROUTER_DIRECTIVES],
+  'directives': [ROUTER_DIRECTIVES],
   template: `
   <div>
     <nav>
@@ -788,7 +788,7 @@ Vi skal ikke se nærmere på `EventEmitter` og `@Output` med det første.
 Dette har bare vært en kort innføring for nå.
 Til å begynne med bruker vi Angular sitt innebygde direktiv Click.
 
-**/src/book-app/books/books.component.ts**
+**Endre filen: /src/book-app/books/books.component.ts**
 Endre koden i template:
 ```javascript
 <tr *ngFor="let book of books" [book-row]="book" (click)="bookSelected(book)"></tr>
@@ -830,7 +830,7 @@ import { Component } from '@angular/core';
         <form>
             <input type="text" name="name" placeholder="Name *">
             <input type="email" name="email" placeholder="Email">
-            <textarea placeholder="Message *" name="messageText"></textarea>
+            <textarea placeholder="Message *" name="message"></textarea>
             <button type="submit">Contact us</button>
         </form>
     `
@@ -887,7 +887,7 @@ import {
 
 @Component({
     'selector': 'contact',
-    directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    'directives': [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
 ...
 ```
 
@@ -973,7 +973,7 @@ Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå
 Det er mange måter å vise feilmeldinger på, 
 vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type feil i bunnen av skjema i en samlet `<div>`.
 
-**/src/book-app/contact/contact.component.ts**
+**Endre koden i filen: /src/book-app/contact/contact.component.ts**
 ```html
 <div class="center">
     <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
@@ -985,7 +985,7 @@ vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type
 ### Legg på validering
 For at validering skal fungere må vi si til hver enkelt FormControl hva slags validering som gjelder for den.
 
-**/src/book-app/contact/contact.component.ts**
+**Endre koden i filen: /src/book-app/contact/contact.component.ts**
 ```javascript
 import {
   FORM_DIRECTIVES,
@@ -1025,12 +1025,12 @@ som vil ha servicen kan få tak i den.
 
 ## 5.1 Lage en service
 Servicen vår mangler noen funksjonalitet som du må oppfylle.
-Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.
+**Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.**
 
 ## 5.2 Gjør servicen tilgjengelig for DI
 For at en komponent skal bli tilgjengelig for DI må du annotere den
 med @Injectable() Husk å bruke parenteser, ellers får du mange rare feilmeldinger! 
-Denne annotasjonen skal ligge i *src/book-app/services/book.service.ts*
+**Legg til annotasjonen i filen: src/book-app/services/book.service.ts**
 
 De komponentene som skal bruke vår @Injectable() service-klasse må:
 * sette 'providers' i en @Component-annotasjonen 
@@ -1065,6 +1065,8 @@ Linjen
 ```
 er kommentert ut. Ta den i bruk.
 
+Da kan du se en liste av bøker når du går til [http://localhost:8080](http://localhost:8080)!
+
 ## 5.3 En detaljert visning av hver bok
 Nå som vi har sett litt på Dependency Injection så kan vi fortsette med listen av bøker.
 
@@ -1094,9 +1096,6 @@ Da kan du teste å navigere videre fra bok-listen!
 ## Oppgave 6 Lifecycle hooks
 
 ### Skift til riktig branch
-```
-git checkout -f oppgave6
-```
 
 Angular har ansvaret for å håndtere dine komponenter og dette kommer med diverse hendelser.
 Hver komponent som vi lager i Angular har en så kalt *lifecycle*.
@@ -1128,9 +1127,6 @@ Her må du bruke OnInit-interfacet.  Vi kunne selvsagt også bare kalle servicen
 ## Oppgave 7 Binding til events
 
 ### Skift til riktig branch
-```
-git checkout -f oppgave7
-```
 
 Vanlig Angular-applikasjon er et tree av komponenter, hvor data flyter nedover i tree 
 oftest via property-binding ved hjelp av @Input-annotering. Når man har behov å 
@@ -1160,7 +1156,7 @@ Siden vi retunerer instanser av Book-klasse fra BookService, er *payload* i dett
 tilfelle *en array av bøker*.
 
 ## 7.2 Send events fra søkresultater
-Åpne filen src/book-app/search/search-component.ts
+**Endre koden etter instruksjoner i filen: src/book-app/search/search-component.ts**
 
 Når vi har vår egen EventEmitter på plass, må vi sende events på riktige tidspunkter
 med den, slik at de komponentene som lytter på oss kan reager på dem.
