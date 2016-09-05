@@ -9,7 +9,7 @@ import {
 
 @Component({
     'selector': 'contact',
-    directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    'directives': [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
     'template': `
         <p class="center" *ngIf="submitted">Thank you for contacting us!</p>
 
