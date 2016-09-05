@@ -1025,11 +1025,13 @@ som vil ha servicen kan få tak i den.
 
 ## 5.1 Lage en service
 Servicen vår mangler noen funksjonalitet som du må oppfylle.
+
 **Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.**
 
 ## 5.2 Gjør servicen tilgjengelig for DI
 For at en komponent skal bli tilgjengelig for DI må du annotere den
 med @Injectable() Husk å bruke parenteser, ellers får du mange rare feilmeldinger! 
+
 **Legg til annotasjonen i filen: src/book-app/services/book.service.ts**
 
 De komponentene som skal bruke vår @Injectable() service-klasse må:
@@ -1078,7 +1080,7 @@ må du først injisere Router-service i constructor:
 **Endre koden i src/book-app/books/books.component.ts**
 ```javascript
     constructor(private bookService: BookService, private router: Router) {
-       }
+    }
 ```
 La merke at vi trenger **ikke** å endre 'providers' i komponenten,
 siden Angular tilbyr denne servicen automatisk til den scopen hvor vår komponent er.
@@ -1094,8 +1096,6 @@ Da kan du teste å navigere videre fra bok-listen!
 
 
 ## Oppgave 6 Lifecycle hooks
-
-### Skift til riktig branch
 
 Angular har ansvaret for å håndtere dine komponenter og dette kommer med diverse hendelser.
 Hver komponent som vi lager i Angular har en så kalt *lifecycle*.
@@ -1122,11 +1122,11 @@ class MyComponent implements OnInit {
 Ved hjelp av BookService-klassen skal du vise antall bøker i bibliotek.
 Her må du bruke OnInit-interfacet.  Vi kunne selvsagt også bare kalle servicen i en constructor til klasse, men det er trygger og bedre å la constructoren bare initialisere attributer til klassen, og gjøre ting som krever mer jobb i ngOnInit-metoden.
 
-**Endre koden etter instruksjoner i filen src/book-app/about/about.component.ts**
+**Endre koden etter instruksjoner i filen: src/book-app/about/about.component.ts**
+
+Da kan du teste at antall bøker er riktig i 'about'-seksjonen.
 
 ## Oppgave 7 Binding til events
-
-### Skift til riktig branch
 
 Vanlig Angular-applikasjon er et tree av komponenter, hvor data flyter nedover i tree 
 oftest via property-binding ved hjelp av @Input-annotering. Når man har behov å 
@@ -1135,14 +1135,16 @@ kustom events. Dette er ikke den eneste måte å passe data oppover i komponents
 men når man har direkte parent-child relasjon, er dette en grei måte å gjøre det.
 
 I vår applikasjon har vi parent-child relasjon mellom komponenter *Books* og 
-*SearchComponent*. Siden Books inkluderer *<search>*-tag i sin template, er
+*SearchComponent*. Siden Books inkluderer *\<search\>*-tag i sin template, er
  den parent-komponent, og SearchComponent er child-komponent.
  Når brukeren utfører søk og får resultater, må fi fortelle nå oppover i strukturen
  at vi har noe som vi ville vise til brukeren.
  Dette kan vi oppnå ved å lage vår egen *custome event* og reagere på den.
 
 ## 7.1 Lage en custom event for resultater
+
 **Åpne filen src/book-app/search/search-component.ts**
+
 Der skal vi ha vår custom-event som er av type *EventEmitter*.
 I tillegg til det må vi annotere det slik at Angular kan registrer den.
 Riktig annotasjon her er *@Output()*.
@@ -1156,15 +1158,14 @@ Siden vi retunerer instanser av Book-klasse fra BookService, er *payload* i dett
 tilfelle *en array av bøker*.
 
 ## 7.2 Send events fra søkresultater
-**Endre koden etter instruksjoner i filen: src/book-app/search/search-component.ts**
-
 Når vi har vår egen EventEmitter på plass, må vi sende events på riktige tidspunkter
 med den, slik at de komponentene som lytter på oss kan reager på dem.
 Disse tidspunktene i vår tilfelle er når vi *har fått søkresultat* og når brukeren
 har *skrivet i søkefelt mindre enn 2 tegn*.
 
+**Endre koden etter instruksjoner i filen: src/book-app/search/search-component.ts**
+
 ## 7.3 Vis resultater ved events i template
-**Åpne filen src/book-app/books/books.component.ts**
 
 Da er vår komponent klar til å sende events, og det som gjenstår, er å definere
 hvordan vi reagerer på dem i parent-komponent. 
@@ -1175,6 +1176,8 @@ F.eks.
 <mytag (onMyCustomEvent)='myMethodCall($event)'></mytag>
 ```
 La merke hvordan man viderefører *payload* fra event til metode-kall ved å bruke '$event'-argument.
+
+**Endre koden etter instruksjoner i filen: src/book-app/books/books.component.ts**
 
 Da kan du søke bøker og se resultater i bok-lista med en gang vi har noenting å vise!
  
