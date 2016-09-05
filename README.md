@@ -6,7 +6,9 @@ I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av
 ## Før du begynner
  - `git clone git@github.com:johanhar/javazone2016-angular2-workshop.git`
  - `npm install`
+ 
 [Her kan du installere Node](https://nodejs.org/en/download/)
+
 [Her kan du installere Git](https://git-scm.com/downloads)
 
 
