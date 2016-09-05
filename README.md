@@ -104,7 +104,7 @@ En Angular applikasjon må bootstrappes med rot-komponenten.
 Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. 
 Resten av appen har sitt utspring fra rot-komponenten.
 
-**/src/main.ts**
+**Rediger /src/main.ts**
 ```javascript
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { BookApp } from './book-app/book-app.component';
@@ -117,7 +117,9 @@ så vil Angular starte applikasjonen med BookApp som rot-komponent,
 og i det tomme arrayet har vi mulighet til å oppgi avhengigheter som vil være tilgjengelige 
 hvor som helst i appen for alle komponenter som skulle trenge dette.
 
-**/src/index.html**
+Nå kan vi ta i bruk `<book-app>` i vår `index.html`.
+
+**Rediger /src/index.html**
 ```html
 ...
 <body>
@@ -145,6 +147,7 @@ Du kan lese mer om dette [her](https://angular.io/docs/ts/latest/guide/architect
 
 Før man kan bruke andre direktiver og komponenter må man fortelle Angular om dette. Dette kan gjøres i metadata/annotation til komponenten.
 
+Nedenfor ser du et eksempel på slik kode:
 ```javascript
 // Dette er bare eksempel og ikke en del av oppgaven
 @Component({
@@ -353,9 +356,12 @@ import { Component } from '@angular/core';
 export class About {}
 ```
 
+Nå har vi fått på plass noen komponenter som vi kan rute til.
+Fortsett med neste oppgave, det er ikke mye nytt å se i [http://localhost:8080](http://localhost:8080) enda.
+
 ## Oppgave 2.2 - Definer ruter til hver komponent
 
-### Opprett og bootstrap rutene
+### Definer ruter ved bootstrapping
 **/src/main.ts**
 ```javascript
 import { bootstrap } from '@angular/platform-browser-dynamic';
@@ -401,8 +407,10 @@ bootstrap(BookApp, [
 ]);
 ```
 
+Som nevnt tidligere kan vi også la hver komponent selv bestemme sine egne ruter, men her i denne workshopen gjør vi det enkelt med at alle ruter defineres ett sted ved bootstrapping.
+
 Hvis vi tar en titt i consolen til nettleseren vår nå finner vi sikkert flere feil.
-Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`.
+Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`, dette skal vi fikse nå.
 
 ### Ta i bruk RouterOutlet
 **/src/book-app/book-app.component.ts**
@@ -502,6 +510,8 @@ export class About {
 }
 ```
 
+Du kan nå navigere i appen til "About" og se endringene.
+
 #### Hvor ble det av $scope?
 For de som har jobbet med Angular 1 så legger man kanskje merke til at `$scope` er borte.
 Alle funksjoner og variabler i klassen `About` vil være synlige for templaten.
@@ -579,6 +589,9 @@ Hvert argument i constructor vil automatisk bli en property til klassen, og hver
 
 Mer eksplesitt kunne vi har skrevet:
 ```javascript
+//
+// Dette er bare et eksempel og ikke en del av koden som skal inn i prosjektet
+//
 class Book {
     id: Number
     title: String;
@@ -597,7 +610,8 @@ class Book {
 ``` 
 
 Det er kanskje enklere å forstå, mange vil foretrekke denne versjonen.
-Det er mest vanlig med TypeScript å bruke vårt første eksempel:
+
+Det mest vanlige med TypeScript å bruke vårt første eksempel:
  * hver property blir definert i constructor, de trengs ikke å defineres på forhånd
  * hver property vil bli assigned automatisk, vi trenger ikke å gjøre det selv med `this.property = argument`
 
@@ -629,7 +643,7 @@ export class BookRow {
 ```
 
 ### Ta i bruk den nye komponenten i tabellen
-**Opprett en fil: /src/book-app/books/books.component.ts**
+**Rediger: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
@@ -658,6 +672,8 @@ import { BookRow } from './book-row.component';
 })
 export class Books {}
 ```
+
+Ta en titt i nettleseren din nå, listen du hadde av bøker er byttet ut med en tabell som er bygget opp av flere `<book-row>`.
 
 Syntaksen i BookRow sin selector er litt annerledes.
 Vi sier at man skal kun bruke komponenten som en attributt på et html element, og det må være en `<tr>`.
@@ -725,6 +741,7 @@ export class SomeComponent {
 La oss late som at Books henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
 Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (/src/book-app/books/book.data.ts.tmp)
 ### Endre navnet til filen book.data.ts.tmp til book.data.ts (altså fjern .tmp fra navnet)
+
 ### Endre BookRow til å ta imot Book med @Input
 **/src/book-app/books/book-row.component**
 ```javascript
@@ -743,6 +760,10 @@ export class BookRow {
     @Input('book-row') book: Book;
 }
 ```
+
+Nå er BookRow en ganske enkel komponent, den tar en bok og viser dataen uten noe mer enn det.
+Ser du i nettleseren nå får du sikkert opp noen feil eller et tomt view, bare fortsett til neste oppgave,
+det som mangler er at vi ikke gir BookRow noen Book enda.
 
 ### Gi hver BookRow sin egen Book
 **/src/book-app/books/books.component**
@@ -774,6 +795,8 @@ export class Books {
     books: [Book] = BOOK_DATA
 }
 ```
+
+Ta en titt i nettleseren din, det bør nå fungere igjen.
 
 ## Oppgave 3.5 - Output
 Nå har vi sett på input. Hvordan kan en komponent sende output til sin parent og fortelle om events og lignende?
@@ -877,7 +900,7 @@ Gjør det samme for epost og meldingsfeltet.
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
 ```
 
-Vi skal snart sette opp `contactForm` og den metoden `onSubmit(value: string)` i klassen.
+Vi skal snart sette opp `contactForm` og metoden `onSubmit(value: string)` i klassen.
 
 ## Oppgave 4.2 - FormBuilder
 Koden du har skrevet til nå kjører ikke særlig bra, vi trenger å sette ting sammen i klassen.
@@ -900,6 +923,8 @@ import {
     'directives': [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
 ...
 ```
+
+Det er fortsatt litt arbeid som skal til før vi kan kjøre appen uten feil, fortsett med oppgavene under.
 
 ### Ta i bruk FormBuilder for å lage FormGroup
 La oss se nærmere på det som må gjøres i klassen, nå som vi har gjort ferdig view biten.
@@ -924,6 +949,8 @@ export class Contact {
 }
 ```
 
+Nå burde du kunne se at det logges i console ved submit.
+
 Hvor kommer FormBuilder fra? Dette forklarer vi nærmere senere når vi går gjennom Dependency Injection.
 Prøv å submit skjema og se hva som blir logget i consolen.
 
@@ -933,7 +960,10 @@ Det er kanskje litt kjedelig å bare logge til console, la oss prøve å gjøre 
 ### Legg til følgende kode i Contact komponenten
 **/src/book-app/contact/contact.component.ts**
 ```javascript
+//
 // Dette er ikke hele filen, bare det som du skal legge inn ekstra på riktige steder
+// Du skal ikke fjerne/erstatte eksisterende kode
+//
 @Component({
     'template': `
         <p class="center" *ngIf="submitted">Thank you for contacting us!</p>
@@ -956,7 +986,7 @@ export class Contact {
 ```
 
 Som vi har snakket om før så vil `<p *ngIf="submitted">` sitt innhold vises/skjules når `submitted` endres.
-Angular tar seg av endringer i viewet, man trenger bare å sette `submitted` og så vil resten skje automatisk.
+Angular tar seg av endringer i viewet, man trenger bare å endre `submitted` og så vil resten skje automatisk.
 
 ## Oppgave 4.4 - Validering
 Som du kan se har vi prøvd å merke navn og melding som obligatorisk med å bruke stjerne, 
@@ -966,7 +996,7 @@ Vi har også et felt for epost, som nå valideres av nettleseren din (HTML5).
 ### Slå av HTML5 validering
 Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå av HTML5 validering.
 
-**/src/book-app/contact/contact.component.ts**
+**Rediger: /src/book-app/contact/contact.component.ts**
 ```html
 <form [formGroup]="contactForm" 
     (ngSubmit)="onSubmit(contactForm.value)" 
@@ -983,7 +1013,7 @@ Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå
 Det er mange måter å vise feilmeldinger på, 
 vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type feil i bunnen av skjema i en samlet `<div>`.
 
-**Endre koden i filen: /src/book-app/contact/contact.component.ts**
+**Rediger: /src/book-app/contact/contact.component.ts**
 ```html
 <div class="center">
     <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
@@ -995,7 +1025,7 @@ vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type
 ### Legg på validering
 For at validering skal fungere må vi si til hver enkelt FormControl hva slags validering som gjelder for den.
 
-**Endre koden i filen: /src/book-app/contact/contact.component.ts**
+**Rediger: /src/book-app/contact/contact.component.ts**
 ```javascript
 import {
   FORM_DIRECTIVES,
@@ -1015,7 +1045,7 @@ constructor(formBuilder: FormBuilder) {
 }
 ```
 
-Nå kan du prøve å sende formen, og se om valideringen virkelig fungerer!
+Nå kan du prøve å sende formen og se om valideringen virkelig fungerer!
 
 Dette er helt enkel validering.
 Det er mye mer man kan gjøre med forms og validering, 
