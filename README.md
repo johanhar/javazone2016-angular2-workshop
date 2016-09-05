@@ -422,7 +422,7 @@ export class BookApp {}
 ```
 
 ### Ta i bruk RouterLink
-**Opprett en fil: /src/book-app/navbar.component.ts**
+**/src/book-app/navbar.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
@@ -446,7 +446,7 @@ export class Navbar {}
 
 Nå burde det være mulig å navigere seg mellom komponenter i appen.
 Som forklart tidligere er det bare den delen av siden hvor man har plassert `<router-outlet>` at man bytter til en ny komponent for hver rute.
-Istedenfor å bruke `<a href="..">` så bruker vi `<a [routerLink]="['rute']"> til å linke mellom ruter. 
+Istedenfor å bruke `<a href="..">` så bruker vi `<a [routerLink]="['rute']">` til å linke mellom ruter. 
 
 ## Oppgave 3 - Template bindings
 
