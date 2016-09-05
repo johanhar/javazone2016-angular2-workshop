@@ -11,6 +11,8 @@ I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av
 
 [Her kan du installere Git](https://git-scm.com/downloads)
 
+[Ferdig løsning ser slik ut](https://jz2016-ng2-ws.herokuapp.com)
+
 ## Verktøy/IDE
 Du kan bruke den IDE eller editor som du selv ønsker.
 Vi anbefaler en IDE/editor som har god støtte/plugins for TypeScript.
