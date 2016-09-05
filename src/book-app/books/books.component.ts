@@ -9,7 +9,7 @@ import {Result} from "./result.component";
 
 @Component({
     // Oppgave 5.2 legg til providers-attribute her.
-    'providers': [BookService],
+    'providers': [],
     'selector': 'books',
     'directives': [SearchComponent, BookRow, Result],
     'template': `
