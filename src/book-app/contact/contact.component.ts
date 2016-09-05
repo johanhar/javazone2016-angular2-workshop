@@ -33,7 +33,7 @@ import {
                 [formControl]="contactForm.controls['message']">
             </textarea>
 
-            <button type="submit">Contact us</button>
+            <button type="submit" [disabled]="!contactForm.valid">Contact us</button>
         </form>
         <div class="center">
             <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
