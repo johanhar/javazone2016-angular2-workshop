@@ -6,6 +6,20 @@ I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av
 ## Før du begynner
  - `git clone git@github.com:johanhar/javazone2016-angular2-workshop.git`
  - `npm install`
+ 
+[Her kan du installere Node](https://nodejs.org/en/download/)
+
+[Her kan du installere Git](https://git-scm.com/downloads)
+
+[Ferdig løsning ser slik ut](https://jz2016-ng2-ws.herokuapp.com)
+
+## Verktøy/IDE
+Du kan bruke den IDE eller editor som du selv ønsker.
+Vi anbefaler en IDE/editor som har god støtte/plugins for TypeScript.
+
+ * [WebStorm/IDEA](https://www.jetbrains.com/idea/) (koster penger for å få TypeScript-støtte / 30 dager trial)
+ * [Visual Studio Code](https://code.visualstudio.com) (gratis)
+
 
 ## Oppgave 1 - Component
 
@@ -67,8 +81,8 @@ før du setter i gang med oppgave 1 så må du hoppe over til en egen branch som
 ```
 git checkout -f oppgave1-2
 ```
+Det er viktig at du bruker **-f opsjonen** i kommandoen!
 
-## Oppgave 1.1 - Vår første component
 ### Opprett appens rot-komponent
 Angular er som sagt et tre av komponenter, vi starter med å opprette selve roten som igjen vil bruke andre komponenter.
 
@@ -85,12 +99,14 @@ import { Component } from '@angular/core';
 export class BookApp {}
 ```
 
-## Oppgave 1.2 - Bootstrap appen
-En Angular applikasjon må bootstrappes med rot-komponenten. Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. Resten av appen har sitt utspring fra rot-komponenten.
+Vi er ikke helt klar til å bygge og kjøre appen enda, først må vi bootstrappe rot-komponenten.
 
-### Rediger følgende filer
+### Bootstrap appen
+En Angular applikasjon må bootstrappes med rot-komponenten. 
+Dette gjør at vi kan bruke `<book-app>` elementet fra `index.html`. 
+Resten av appen har sitt utspring fra rot-komponenten.
 
-**/src/main.ts**
+**Rediger /src/main.ts**
 ```javascript
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { BookApp } from './book-app/book-app.component';
@@ -98,7 +114,14 @@ import { BookApp } from './book-app/book-app.component';
 bootstrap(BookApp, []);
 ```
 
-**/src/index.html**
+For å gi en kort forklaring på metodekallet `bootstrap(Component, [dependencies])` 
+så vil Angular starte applikasjonen med BookApp som rot-komponent, 
+og i det tomme arrayet har vi mulighet til å oppgi avhengigheter som vil være tilgjengelige 
+hvor som helst i appen for alle komponenter som skulle trenge dette.
+
+Nå kan vi ta i bruk `<book-app>` i vår `index.html`.
+
+**Rediger /src/index.html**
 ```html
 ...
 <body>
@@ -115,16 +138,18 @@ npm start
 
 Gå så til [http://localhost:8080](http://localhost:8080).
 
-## Oppgave 1.3 - Navigasjonsbar
+## Oppgave 1.2 - Navigasjonsbar
 La oss fortsette med å lage en enkel komponent for navigasjon. Hensikten med denne oppgaven er å vise hvordan en komponent kan bygges opp av andre komponenter. 
 
 #### Directive
 Hvis du kommer fra Angular 1 har du sikkert hørt om Directive. 
 Angular 2 bruker fortsatt begrepet direktiv, det er nemlig sånn at Component er en subtype av Directive. 
-Det finnes flere typer direktiv, hvor komponent er en av typene.
+Det finnes tre typer direktiv, hvor Component er en av typene. "Structural directives" og "Attribute directives" er de to andre.
+Du kan lese mer om dette [her](https://angular.io/docs/ts/latest/guide/architecture.html#!#directives).
 
 Før man kan bruke andre direktiver og komponenter må man fortelle Angular om dette. Dette kan gjøres i metadata/annotation til komponenten.
 
+Nedenfor ser du et eksempel på slik kode:
 ```javascript
 // Dette er bare eksempel og ikke en del av oppgaven
 @Component({
@@ -200,7 +225,7 @@ Du trenger ikke å kjøre `npm start` om igjen, [http://localhost:8080](http://l
 Du har kanskje hørt uttrykket "Single Page Application". Angular sin router gjør det mulig å endre nettleseren sin URL uten at man gjør et nytt page load, og bytte ut deler av siden med andre komponenter for bestemte ruter.
 
 #### RouterConfig
-Brukes til å beskrive appens ruter.
+Brukes til å beskrive appens ruter, for eksempel:
 
 ```javascript
 // Dette er bare et eksempel og ikke en del av oppgaven
@@ -222,13 +247,13 @@ Ovenfor ser vi at man bootstrapper appen samtidig som vi forteller Angular hvilk
 Man kan for eksempel definere alle ruter ved bootstrapping på et sted (som her), eller la hver komponent selv fortelle hvilke ruter den tilbyr.
 
 #### RouterOutlet
-Fungerer som en placeholder for innholdet til en rute.
+Fungerer som en placeholder for innholdet til en rute, for eksempel:
 
 ```javascript
 // Dette er bare eksempel og ikke en del av oppgaven
 @Component({
   selector: 'router-app',
-  directives: [ROUTER_DIRECTIVES],
+  'directives': [ROUTER_DIRECTIVES],
   template: `
   <div>
     <nav>
@@ -300,7 +325,7 @@ Foreløpig har vi bare én TypeScript fil i hver komponent-mappe, senere når ap
 ```
 
 
-**/src/book-app/books/books.component.ts**
+**Opprett en fil: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -311,7 +336,7 @@ import { Component } from '@angular/core';
 export class Books {}
 ```
 
-**/src/book-app/contact/contact.component.ts**
+**Opprett en fil: /src/book-app/contact/contact.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -322,7 +347,7 @@ import { Component } from '@angular/core';
 export class Contact {}
 ```
 
-**/src/book-app/about/about.component.ts**
+**Opprett en fil: /src/book-app/about/about.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 
@@ -333,9 +358,12 @@ import { Component } from '@angular/core';
 export class About {}
 ```
 
+Nå har vi fått på plass noen komponenter som vi kan rute til.
+Fortsett med neste oppgave, det er ikke mye nytt å se i [http://localhost:8080](http://localhost:8080) enda.
+
 ## Oppgave 2.2 - Definer ruter til hver komponent
 
-### Opprett og bootstrap rutene
+### Definer ruter ved bootstrapping
 **/src/main.ts**
 ```javascript
 import { bootstrap } from '@angular/platform-browser-dynamic';
@@ -381,8 +409,10 @@ bootstrap(BookApp, [
 ]);
 ```
 
+Som nevnt tidligere kan vi også la hver komponent selv bestemme sine egne ruter, men her i denne workshopen gjør vi det enkelt med at alle ruter defineres ett sted ved bootstrapping.
+
 Hvis vi tar en titt i consolen til nettleseren vår nå finner vi sikkert flere feil.
-Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`.
+Dette skyldes at rot komponenten ikke har tatt i bruk `RouterOutlet`, dette skal vi fikse nå.
 
 ### Ta i bruk RouterOutlet
 **/src/book-app/book-app.component.ts**
@@ -431,7 +461,7 @@ export class Navbar {}
 
 Nå burde det være mulig å navigere seg mellom komponenter i appen.
 Som forklart tidligere er det bare den delen av siden hvor man har plassert `<router-outlet>` at man bytter til en ny komponent for hver rute.
-Istedenfor å bruke `<a href="..">` så bruker vi `<a [routerLink]="['rute']"> til å linke mellom ruter. 
+Istedenfor å bruke `<a href="..">` så bruker vi `<a [routerLink]="['rute']">` til å linke mellom ruter. 
 
 ## Oppgave 3 - Template bindings
 
@@ -481,6 +511,8 @@ export class About {
     numberOfBooks: Number = 2;
 }
 ```
+
+Du kan nå navigere i appen til "About" og se endringene.
 
 #### Hvor ble det av $scope?
 For de som har jobbet med Angular 1 så legger man kanskje merke til at `$scope` er borte.
@@ -559,6 +591,9 @@ Hvert argument i constructor vil automatisk bli en property til klassen, og hver
 
 Mer eksplesitt kunne vi har skrevet:
 ```javascript
+//
+// Dette er bare et eksempel og ikke en del av koden som skal inn i prosjektet
+//
 class Book {
     id: Number
     title: String;
@@ -577,7 +612,8 @@ class Book {
 ``` 
 
 Det er kanskje enklere å forstå, mange vil foretrekke denne versjonen.
-Det er mest vanlig med TypeScript å bruke vårt første eksempel:
+
+Det mest vanlige med TypeScript å bruke vårt første eksempel:
  * hver property blir definert i constructor, de trengs ikke å defineres på forhånd
  * hver property vil bli assigned automatisk, vi trenger ikke å gjøre det selv med `this.property = argument`
 
@@ -609,7 +645,7 @@ export class BookRow {
 ```
 
 ### Ta i bruk den nye komponenten i tabellen
-**Opprett en fil: /src/book-app/books/books.component.ts**
+**Rediger: /src/book-app/books/books.component.ts**
 ```javascript
 import { Component } from '@angular/core';
 import { BookRow } from './book-row.component';
@@ -639,6 +675,8 @@ import { BookRow } from './book-row.component';
 export class Books {}
 ```
 
+Ta en titt i nettleseren din nå, listen du hadde av bøker er byttet ut med en tabell som er bygget opp av flere `<book-row>`.
+
 Syntaksen i BookRow sin selector er litt annerledes.
 Vi sier at man skal kun bruke komponenten som en attributt på et html element, og det må være en `<tr>`.
 Dette gjør vi for å slippe at Angular rendrer følgende:
@@ -665,7 +703,7 @@ men heller ... :
 Akkurat nå er alle bøker like... 
 Hvordan kan vi gi en liste av BookRow hver sin Book model?
 
-#### [squareBrackets]
+#### Syntaks for input: [squareBrackets]
 Syntaksen for å gi en komponent input er med "square brackets":
 ```html
 <some-component [someValue]="theValue"></some-component>
@@ -705,6 +743,7 @@ export class SomeComponent {
 La oss late som at Books henter en liste av bøker fra en server (dette kommer vi mer inn på senere).
 Når du skiftet branch i starten av oppgaven (`git checkout -f oppgave3`) fikk du med en fil som vi har laget for deg (/src/book-app/books/book.data.ts.tmp)
 ### Endre navnet til filen book.data.ts.tmp til book.data.ts (altså fjern .tmp fra navnet)
+
 ### Endre BookRow til å ta imot Book med @Input
 **/src/book-app/books/book-row.component**
 ```javascript
@@ -723,6 +762,10 @@ export class BookRow {
     @Input('book-row') book: Book;
 }
 ```
+
+Nå er BookRow en ganske enkel komponent, den tar en bok og viser dataen uten noe mer enn det.
+Ser du i nettleseren nå får du sikkert opp noen feil eller et tomt view, bare fortsett til neste oppgave,
+det som mangler er at vi ikke gir BookRow noen Book enda.
 
 ### Gi hver BookRow sin egen Book
 **/src/book-app/books/books.component**
@@ -755,10 +798,12 @@ export class Books {
 }
 ```
 
+Ta en titt i nettleseren din, det bør nå fungere igjen.
+
 ## Oppgave 3.5 - Output
 Nå har vi sett på input. Hvordan kan en komponent sende output til sin parent og fortelle om events og lignende?
 
-#### (parentes)
+#### Syntaks for output: (parentes)
 Syntaksen for at en parent (foreldre-komponent) kan ta imot output er slik:
 ```html
 <products-list (onProductSelected)="productWasSelected($event)">
@@ -778,7 +823,7 @@ Vi skal ikke se nærmere på `EventEmitter` og `@Output` med det første.
 Dette har bare vært en kort innføring for nå.
 Til å begynne med bruker vi Angular sitt innebygde direktiv Click.
 
-**/src/book-app/books/books.component.ts**
+**Endre filen: /src/book-app/books/books.component.ts**
 Endre koden i template:
 ```javascript
 <tr *ngFor="let book of books" [book-row]="book" (click)="bookSelected(book)"></tr>
@@ -820,7 +865,7 @@ import { Component } from '@angular/core';
         <form>
             <input type="text" name="name" placeholder="Name *">
             <input type="email" name="email" placeholder="Email">
-            <textarea placeholder="Message *" name="messageText"></textarea>
+            <textarea placeholder="Message *" name="message"></textarea>
             <button type="submit">Contact us</button>
         </form>
     `
@@ -857,7 +902,7 @@ Gjør det samme for epost og meldingsfeltet.
 <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)">
 ```
 
-Vi skal snart sette opp `contactForm` og den metoden `onSubmit(value: string)` i klassen.
+Vi skal snart sette opp `contactForm` og metoden `onSubmit(value: string)` i klassen.
 
 ## Oppgave 4.2 - FormBuilder
 Koden du har skrevet til nå kjører ikke særlig bra, vi trenger å sette ting sammen i klassen.
@@ -877,9 +922,11 @@ import {
 
 @Component({
     'selector': 'contact',
-    directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+    'directives': [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
 ...
 ```
+
+Det er fortsatt litt arbeid som skal til før vi kan kjøre appen uten feil, fortsett med oppgavene under.
 
 ### Ta i bruk FormBuilder for å lage FormGroup
 La oss se nærmere på det som må gjøres i klassen, nå som vi har gjort ferdig view biten.
@@ -904,6 +951,8 @@ export class Contact {
 }
 ```
 
+Nå burde du kunne se at det logges i console ved submit.
+
 Hvor kommer FormBuilder fra? Dette forklarer vi nærmere senere når vi går gjennom Dependency Injection.
 Prøv å submit skjema og se hva som blir logget i consolen.
 
@@ -913,7 +962,10 @@ Det er kanskje litt kjedelig å bare logge til console, la oss prøve å gjøre 
 ### Legg til følgende kode i Contact komponenten
 **/src/book-app/contact/contact.component.ts**
 ```javascript
+//
 // Dette er ikke hele filen, bare det som du skal legge inn ekstra på riktige steder
+// Du skal ikke fjerne/erstatte eksisterende kode
+//
 @Component({
     'template': `
         <p class="center" *ngIf="submitted">Thank you for contacting us!</p>
@@ -936,7 +988,7 @@ export class Contact {
 ```
 
 Som vi har snakket om før så vil `<p *ngIf="submitted">` sitt innhold vises/skjules når `submitted` endres.
-Angular tar seg av endringer i viewet, man trenger bare å sette `submitted` og så vil resten skje automatisk.
+Angular tar seg av endringer i viewet, man trenger bare å endre `submitted` og så vil resten skje automatisk.
 
 ## Oppgave 4.4 - Validering
 Som du kan se har vi prøvd å merke navn og melding som obligatorisk med å bruke stjerne, 
@@ -946,7 +998,7 @@ Vi har også et felt for epost, som nå valideres av nettleseren din (HTML5).
 ### Slå av HTML5 validering
 Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå av HTML5 validering.
 
-**/src/book-app/contact/contact.component.ts**
+**Rediger: /src/book-app/contact/contact.component.ts**
 ```html
 <form [formGroup]="contactForm" 
     (ngSubmit)="onSubmit(contactForm.value)" 
@@ -963,7 +1015,7 @@ Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå
 Det er mange måter å vise feilmeldinger på, 
 vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type feil i bunnen av skjema i en samlet `<div>`.
 
-**/src/book-app/contact/contact.component.ts**
+**Rediger: /src/book-app/contact/contact.component.ts**
 ```html
 <div class="center">
     <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
@@ -975,7 +1027,7 @@ vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type
 ### Legg på validering
 For at validering skal fungere må vi si til hver enkelt FormControl hva slags validering som gjelder for den.
 
-**/src/book-app/contact/contact.component.ts**
+**Rediger: /src/book-app/contact/contact.component.ts**
 ```javascript
 import {
   FORM_DIRECTIVES,
@@ -1023,12 +1075,14 @@ som vil ha servicen kan få tak i den.
 
 ## 5.1 Lage en service
 Servicen vår mangler noen funksjonalitet som du må oppfylle.
-Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.
+
+**Se på filen *src/book-app/services/book.service.ts* og følg instruksjoner der.**
 
 ## 5.2 Gjør servicen tilgjengelig for DI
 For at en komponent skal bli tilgjengelig for DI må du annotere den
 med @Injectable() Husk å bruke parenteser, ellers får du mange rare feilmeldinger! 
-Denne annotasjonen skal ligge i *src/book-app/services/book.service.ts*
+
+**Legg til annotasjonen i filen: src/book-app/services/book.service.ts**
 
 De komponentene som skal bruke vår @Injectable() service-klasse må:
 * sette 'providers' i en @Component-annotasjonen 
@@ -1063,6 +1117,8 @@ Linjen
 ```
 er kommentert ut. Ta den i bruk.
 
+Da kan du se en liste av bøker når du går til [http://localhost:8080](http://localhost:8080)!
+
 ## 5.3 En detaljert visning av hver bok
 Nå som vi har sett litt på Dependency Injection så kan vi fortsette med listen av bøker.
 
@@ -1074,7 +1130,7 @@ må du først injisere Router-service i constructor:
 **Endre koden i src/book-app/books/books.component.ts**
 ```javascript
     constructor(private bookService: BookService, private router: Router) {
-       }
+    }
 ```
 La merke at vi trenger **ikke** å endre 'providers' i komponenten,
 siden Angular tilbyr denne servicen automatisk til den scopen hvor vår komponent er.
@@ -1116,8 +1172,11 @@ class MyComponent implements OnInit {
 Ved hjelp av BookService-klassen skal du vise antall bøker i bibliotek.
 Her må du bruke OnInit-interfacet.  Vi kunne selvsagt også bare kalle servicen i en constructor til klasse, men det er trygger og bedre å la constructoren bare initialisere attributer til klassen, og gjøre ting som krever mer jobb i ngOnInit-metoden.
 
-**Endre koden etter instruksjoner i filen src/book-app/about/about.component.ts**
+**Endre koden etter instruksjoner i filen: src/book-app/about/about.component.ts**
 
+Da kan du teste at antall bøker er riktig i 'about'-seksjonen.
+
+## Oppgave 7 Binding til events
 
 Vanlig Angular-applikasjon er et tree av komponenter, hvor data flyter nedover i tree 
 oftest via property-binding ved hjelp av @Input-annotering. Når man har behov å 
@@ -1126,14 +1185,16 @@ kustom events. Dette er ikke den eneste måte å passe data oppover i komponents
 men når man har direkte parent-child relasjon, er dette en grei måte å gjøre det.
 
 I vår applikasjon har vi parent-child relasjon mellom komponenter *Books* og 
-*SearchComponent*. Siden Books inkluderer *<search>*-tag i sin template, er
+*SearchComponent*. Siden Books inkluderer *\<search\>*-tag i sin template, er
  den parent-komponent, og SearchComponent er child-komponent.
  Når brukeren utfører søk og får resultater, må fi fortelle nå oppover i strukturen
  at vi har noe som vi ville vise til brukeren.
  Dette kan vi oppnå ved å lage vår egen *custome event* og reagere på den.
 
 ## 7.1 Lage en custom event for resultater
+
 **Åpne filen src/book-app/search/search-component.ts**
+
 Der skal vi ha vår custom-event som er av type *EventEmitter*.
 I tillegg til det må vi annotere det slik at Angular kan registrer den.
 Riktig annotasjon her er *@Output()*.
@@ -1147,15 +1208,14 @@ Siden vi retunerer instanser av Book-klasse fra BookService, er *payload* i dett
 tilfelle *en array av bøker*.
 
 ## 7.2 Send events fra søkresultater
-Åpne filen src/book-app/search/search-component.ts
-
 Når vi har vår egen EventEmitter på plass, må vi sende events på riktige tidspunkter
 med den, slik at de komponentene som lytter på oss kan reager på dem.
 Disse tidspunktene i vår tilfelle er når vi *har fått søkresultat* og når brukeren
 har *skrivet i søkefelt mindre enn 2 tegn*.
 
+**Endre koden etter instruksjoner i filen: src/book-app/search/search-component.ts**
+
 ## 7.3 Vis resultater ved events i template
-**Åpne filen src/book-app/books/books.component.ts**
 
 Da er vår komponent klar til å sende events, og det som gjenstår, er å definere
 hvordan vi reagerer på dem i parent-komponent. 
@@ -1166,6 +1226,8 @@ F.eks.
 <mytag (onMyCustomEvent)='myMethodCall($event)'></mytag>
 ```
 La merke hvordan man viderefører *payload* fra event til metode-kall ved å bruke '$event'-argument.
+
+**Endre koden etter instruksjoner i filen: src/book-app/books/books.component.ts**
 
 Da kan du søke bøker og se resultater i bok-lista med en gang vi har noenting å vise!
  
