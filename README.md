@@ -11,6 +11,13 @@ I denne workshoppen skal vi lage en applikasjon for å håndtere et bibliotek av
 
 [Her kan du installere Git](https://git-scm.com/downloads)
 
+## Verktøy/IDE
+Du kan bruke den IDE eller editor som du selv ønsker.
+Vi anbefaler en IDE/editor som har god støtte/plugins for TypeScript.
+
+ * [WebStorm/IDEA](https://www.jetbrains.com/idea/) (koster penger for å få TypeScript-støtte / 30 dager trial)
+ * [Visual Studio Code](https://code.visualstudio.com) (gratis)
+
 
 ## Oppgave 1 - Component
 
