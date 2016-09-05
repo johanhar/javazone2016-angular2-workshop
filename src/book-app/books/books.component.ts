@@ -9,12 +9,12 @@ import {Result} from "./result.component";
 
 @Component({
     // Oppgave 5.2 legg til providers-attribute her.
-    'providers': [],
+    'providers': [BookService],
     'selector': 'books',
     'directives': [SearchComponent, BookRow, Result],
     'template': `
         <!-- Oppgave 7.3 Her må vi binde til vår event som heter 'onSearchResult-->
-        <search></search>
+        <search (onSearchResult)="showResult($event)"></search>
         <result #result [results]='books'></result>
 
         <table *ngIf="!result.isEmpty()">
@@ -35,10 +35,12 @@ export class Books implements OnInit {
     books: Book[] = [];
 
     // Oppgave 5.2. Du må legge til constructor med injisert BookService
+    constructor(private bookService: BookService, private router: Router) {
+    }
 
     ngOnInit(): void {
     //Oppgave 5.2 fjern kommentarer her når bookService er tilgjengelig.
-    // this.books = this.bookService.getAll();
+        this.books = this.bookService.getAll();
     }
 
     // Oppgave 7.3 Her setter vi søkresultat til komponent.
@@ -50,5 +52,6 @@ export class Books implements OnInit {
     bookSelected(book: Book) {
         console.log(book);
         // Oppgave 5.3 Navigering til detaljert visning av en bok.
+        this.router.navigate(['/books', book.id]);
     }
 }

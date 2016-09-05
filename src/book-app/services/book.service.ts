@@ -13,7 +13,13 @@ export class BookService {
         });
         // Oppgave 5.1 her skal vi retunere en instans av Book-klasse.
         // Bruk details for å opprette en ny Book-instans.
-        return null;
+        return new Book(
+            details.id,
+            details.title,
+            details.author,
+            details.isbn,
+            details.description
+        );
     }
 
     search(searchKey: string): Observable<Book[]> {
@@ -33,7 +39,7 @@ export class BookService {
         // subscriber-funksjonen ovenfor.
         // Du kan bruke statisk 'create'-metoden i Observable-klasse.
         // http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html
-        return null;
+        return Observable.create(subscriberFunction);;
     }
 
     numberOfBooks(): number {
