@@ -149,6 +149,7 @@ input.error, textarea.error {
     background: #AD4747;
     color: #fff;
 }
+
 div.error {
     color: #AD4747;
 }
@@ -157,4 +158,17 @@ input.error, textarea.error {
     color: black;
 }
 
+button {
+    padding: 10px 20px;
+    border: 1px solid #333;
+    color: white;
+    background: #2e8b57;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
+button[disabled=disabled], button:disabled {
+    background: #333;
+    color: #ccc;
+    cursor: not-allowed;
+}

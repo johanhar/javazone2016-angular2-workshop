@@ -946,7 +946,7 @@ Vi har også et felt for epost, som nå valideres av nettleseren din (HTML5).
 ### Slå av HTML5 validering
 Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå av HTML5 validering.
 
-**/src/book-app/contact/contact.component.ts**
+**Editer: /src/book-app/contact/contact.component.ts**
 ```html
 <form [formGroup]="contactForm" 
     (ngSubmit)="onSubmit(contactForm.value)" 
@@ -963,7 +963,7 @@ Ofte ønsker vi kontrollen på feilmeldinger selv, så la oss starte med å slå
 Det er mange måter å vise feilmeldinger på, 
 vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type feil i bunnen av skjema i en samlet `<div>`.
 
-**/src/book-app/contact/contact.component.ts**
+**Editer: /src/book-app/contact/contact.component.ts**
 ```html
 <div class="center">
     <p *ngIf="!contactForm.controls['name'].valid && contactForm.controls['name'].touched">Name is required</p>
@@ -975,7 +975,7 @@ vi gjør det enkelt (og ikke nødvendigvis penest og best) med å vise alle type
 ### Legg på validering
 For at validering skal fungere må vi si til hver enkelt FormControl hva slags validering som gjelder for den.
 
-**/src/book-app/contact/contact.component.ts**
+**Editer: /src/book-app/contact/contact.component.ts**
 ```javascript
 import {
   FORM_DIRECTIVES,
@@ -993,6 +993,14 @@ constructor(formBuilder: FormBuilder) {
         'message': ['', Validators.required]
     })
 }
+```
+
+### Gjør submit-knappen disabled når formen er ugyldig
+Angular har et innebygd direktiv for å gjøre felter og knapper disabled. 
+
+**Editer: /src/book-app/contact/contact.component.ts**
+```html
+<button type="submit" [disabled]="!contactForm.valid">Contact us</button>
 ```
 
 Nå kan du prøve å sende formen, og se om valideringen virkelig fungerer!
