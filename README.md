@@ -680,7 +680,7 @@ men heller ... :
 Akkurat nå er alle bøker like... 
 Hvordan kan vi gi en liste av BookRow hver sin Book model?
 
-#### [squareBrackets]
+#### Syntaks for input: [squareBrackets]
 Syntaksen for å gi en komponent input er med "square brackets":
 ```html
 <some-component [someValue]="theValue"></some-component>
@@ -773,7 +773,7 @@ export class Books {
 ## Oppgave 3.5 - Output
 Nå har vi sett på input. Hvordan kan en komponent sende output til sin parent og fortelle om events og lignende?
 
-#### (parentes)
+#### Syntaks for output: (parentes)
 Syntaksen for at en parent (foreldre-komponent) kan ta imot output er slik:
 ```html
 <products-list (onProductSelected)="productWasSelected($event)">
