@@ -995,7 +995,15 @@ constructor(formBuilder: FormBuilder) {
 }
 ```
 
-Nå kan du prøve å sende formen, og se om valideringen virkelig fungerer!
+### Gjør submit-knappen disabled når formen er ugyldig
+Angular har et innebygd direktiv for å gjøre felter og knapper disabled. 
+
+**Editer: /src/book-app/contact/contact.component.ts**
+```html
+<button type="submit" [disabled]="!contactForm.valid">Contact us</button>
+```
+
+Nå kan du prøve å sende formen og se om valideringen virkelig fungerer!
 
 Dette er helt enkel validering.
 Det er mye mer man kan gjøre med forms og validering, 
