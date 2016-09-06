@@ -19,6 +19,12 @@ export class SearchComponent {
     }
 
     search(searchKey:string):void {
+        if (searchKey.length == 0) {
+            // Oppgave 7.2 Her må du sende (emit) alle bøker !
+            this.onSearchResult.emit(this.bookService.getAll());
+            return;
+        }
+
         if (searchKey.length > 2) {
             this.bookService.search(searchKey).subscribe((result) => {
                 console.log(`Searching with ${searchKey} resulting ${result}`);
